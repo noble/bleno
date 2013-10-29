@@ -1,0 +1,21 @@
+{
+  "name": "bleno",
+  "version": "0.0.0",
+  "description": "A node.js module to implement a BLE (Bluetooth low energy) peripheral",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sandeepmistry/bleno"
+  },
+  "keywords": [
+    "BLE",
+    "peripheral"
+  ],
+  "author": "Sandeep Mistry",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "gitHead": "38ac106ad9763fc55263b00104e08c4c7d56ce8d"
+}
