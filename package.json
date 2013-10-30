@@ -19,5 +19,8 @@
   "readmeFilename": "README.md",
   "devDependencies": {
     "jshint": "~2.3.0"
+  },
+  "dependencies": {
+    "debug": "~0.7.2"
   }
 }
