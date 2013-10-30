@@ -70,6 +70,7 @@ int main(int argc, const char* argv[])
   signal(SIGINT, signalHandler);
   signal(SIGKILL, signalHandler);
   signal(SIGHUP, signalHandler);
+  signal(SIGUSR1, signalHandler);
 
   prctl(PR_SET_PDEATHSIG, SIGINT);
 
@@ -122,6 +123,9 @@ int main(int argc, const char* argv[])
       } else if (SIGHUP == lastSignal) {
         // stop advertising
         hci_le_set_advertise_enable(hciSocket, 0, 1000);
+      } else if (SIGUSR1 == lastSignal) {
+        // restart advertising
+        hci_le_set_advertise_enable(hciSocket, 1, 1000);
       } 
     } else if (selectRetval) {
       if (FD_ISSET(0, &rfds)) {
