@@ -3,7 +3,12 @@
   "version": "0.0.0",
   "description": "A node.js module to implement a BLE (Bluetooth low energy) peripheral",
   "main": "index.js",
+  "engines": {
+    "node": ">=0.8"
+  },
+  "os": [ "darwin", "linux" ],
   "scripts": {
+    "install": "node install.js",
     "test": "jshint *.js"
   },
   "repository": {
@@ -12,6 +17,9 @@
   },
   "keywords": [
     "BLE",
+    "Bluetooth",
+    "Bluetooth Low Energy",
+    "Bluetooth Smart",
     "peripheral"
   ],
   "author": "Sandeep Mistry",
