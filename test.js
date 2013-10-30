@@ -6,7 +6,7 @@ bleno.on('stateChange', function(state) {
   console.log('on -> stateChange: ' + state);
 
   if (state === 'poweredOn') {
-    bleno.startAdvertising('test');
+    bleno.startAdvertising('test', ['00112233445566778899aabbccddeeff']);
   } else {
     bleno.stopAdvertising();
   }
