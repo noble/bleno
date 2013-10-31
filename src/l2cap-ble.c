@@ -20,6 +20,7 @@ int main(int argc, const char* argv[]) {
   struct sockaddr_l2 sockAddr;
   socklen_t sockAddrLen;
   int result;
+  bdaddr_t clientBdAddr;
   int clientL2capSock;
 
   fd_set afds;
@@ -72,7 +73,8 @@ int main(int argc, const char* argv[]) {
       sockAddrLen = sizeof(sockAddr);
       clientL2capSock = accept(serverL2capSock, (struct sockaddr *)&sockAddr, &sockAddrLen);
 
-      printf("accept %s\n", batostr(&sockAddr.l2_bdaddr));
+      baswap(&clientBdAddr, &sockAddr.l2_bdaddr);
+      printf("accept %s\n", batostr(&clientBdAddr));
 
       while(1) {
         FD_ZERO(&rfds);
@@ -121,7 +123,7 @@ int main(int argc, const char* argv[]) {
         }
       }
 
-      printf("disconnect %s\n", batostr(&sockAddr.l2_bdaddr));
+      printf("disconnect %s\n", batostr(&clientBdAddr));
       close(clientL2capSock);
     }
   }
