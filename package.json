@@ -9,7 +9,7 @@
   "os": [ "darwin", "linux" ],
   "scripts": {
     "install": "node install.js",
-    "test": "jshint *.js lib/**/*.js "
+    "test": "jshint *.js lib/."
   },
   "repository": {
     "type": "git",
