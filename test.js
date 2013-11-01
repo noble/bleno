@@ -1,5 +1,5 @@
 var bleno = require('./index');
-var BlenoService = bleno.Service;
+var BlenoPrimaryService = bleno.PrimaryService;
 var BlenoCharacteristic = bleno.Characteristic;
 
 console.log('bleno');
@@ -18,7 +18,7 @@ bleno.on('advertisingStart', function() {
   console.log('on -> advertisingStart');
 
   bleno.setServices([
-    new BlenoService({
+    new BlenoPrimaryService({
       uuid: '00000000000000000000000000000000',
       characteristics: [
         new BlenoCharacteristic({
