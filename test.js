@@ -1,6 +1,7 @@
 var bleno = require('./index');
 var BlenoPrimaryService = bleno.PrimaryService;
 var BlenoCharacteristic = bleno.Characteristic;
+var BlenoDescriptor = bleno.Descriptor;
 
 console.log('bleno');
 
@@ -24,7 +25,13 @@ bleno.on('advertisingStart', function() {
         new BlenoCharacteristic({
           uuid: '00000000000000000000000000000001',
           properties: ['read'],
-          value: new Buffer('value')
+          value: new Buffer('value'),
+          descriptors: [
+            new BlenoDescriptor({
+              uuid: '2901',
+              value: 'user description'
+            })
+          ]
         })
       ]
     })
