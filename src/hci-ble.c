@@ -61,6 +61,7 @@ int main(int argc, const char* argv[])
 
   char stdinBuf[256 * 2 + 1];
   char eirBuf[256];
+  int eirLen = 0;
   int len;
   int i;
 
@@ -126,6 +127,9 @@ int main(int argc, const char* argv[])
       } else if (SIGUSR1 == lastSignal) {
         // restart advertising
         hci_le_set_advertise_enable(hciSocket, 1, 1000);
+
+        // set advertisement data
+        hci_le_set_advertising_data(hciSocket, (uint8_t*)&eirBuf, eirLen, 1000);
       } 
     } else if (selectRetval) {
       if (FD_ISSET(0, &rfds)) {
@@ -142,14 +146,19 @@ int main(int argc, const char* argv[])
           i += 2;
         }
 
+        eirLen = i / 2;
+
         // stop advertising
         hci_le_set_advertise_enable(hciSocket, 0, 1000);
 
         // set advertisement data
-        hci_le_set_advertising_data(hciSocket, (uint8_t*)&eirBuf, i / 2, 1000);
+        hci_le_set_advertising_data(hciSocket, (uint8_t*)&eirBuf, eirLen, 1000);
 
         // start advertising
         hci_le_set_advertise_enable(hciSocket, 1, 1000);
+
+        // set advertisement data
+        hci_le_set_advertising_data(hciSocket, (uint8_t*)&eirBuf, eirLen, 1000);
       }
     }
   }
