@@ -45,19 +45,55 @@ DynamicReadOnlyCharacteristic.prototype.onReadRequest = function(offset, callbac
   callback(result, data);
 };
 
-var CustomWriteOnlyCharacteristic = function() {
+var WriteOnlyCharacteristic = function() {
   BlenoCharacteristic.call(this, {
     uuid: '00000000000000000000000000000003',
     properties: ['write', 'writeWithoutResponse']
   });
 };
 
-util.inherits(CustomWriteOnlyCharacteristic, BlenoCharacteristic);
+util.inherits(WriteOnlyCharacteristic, BlenoCharacteristic);
 
-CustomWriteOnlyCharacteristic.prototype.onWriteRequest = function(data, offset, withoutResponse, callback) {
-  console.log('CustomWriteOnlyCharacteristic write request: ' + data.toString('hex') + ' ' + offset + ' ' + withoutResponse);
+WriteOnlyCharacteristic.prototype.onWriteRequest = function(data, offset, withoutResponse, callback) {
+  console.log('WriteOnlyCharacteristic write request: ' + data.toString('hex') + ' ' + offset + ' ' + withoutResponse);
 
   callback(this.RESULT_SUCCESS);
+};
+
+var NotifyOnlyCharacteristic = function() {
+  BlenoCharacteristic.call(this, {
+    uuid: '00000000000000000000000000000004',
+    properties: ['notify']
+  });
+};
+
+util.inherits(NotifyOnlyCharacteristic, BlenoCharacteristic);
+
+NotifyOnlyCharacteristic.prototype.onSubscribe = function(maxValueSize, updateValueCallback) {
+  console.log('NotifyOnlyCharacteristic subscribe');
+
+  this.counter = 0;
+  this.changeInterval = setInterval(function() {
+    var data = new Buffer(4);
+    data.writeUInt32LE(this.counter, 0);
+
+    console.log('NotifyOnlyCharacteristic update value: ' + this.counter);
+    updateValueCallback(data);
+    this.counter++;
+  }.bind(this), 5000);
+};
+
+NotifyOnlyCharacteristic.prototype.onUnsubscribe = function() {
+  console.log('NotifyOnlyCharacteristic unsubscribe');
+
+  if (this.changeInterval) {
+    clearInterval(this.changeInterval);
+    this.changeInterval = null;
+  }
+};
+
+NotifyOnlyCharacteristic.prototype.onValueUpdate = function() {
+  console.log('NotifyOnlyCharacteristic on value update');
 };
 
 
@@ -80,7 +116,8 @@ bleno.on('advertisingStart', function() {
       characteristics: [
         new StaticReadOnlyCharacteristic(),   
         new DynamicReadOnlyCharacteristic(),
-        new CustomWriteOnlyCharacteristic()
+        new WriteOnlyCharacteristic(),
+        new NotifyOnlyCharacteristic()
       ]
     })
   ]);
