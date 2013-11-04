@@ -10,7 +10,7 @@ var BlenoDescriptor = bleno.Descriptor;
 console.log('bleno');
 
 var StaticReadOnlyCharacteristic = function() {
-  BlenoCharacteristic.call(this, {
+  StaticReadOnlyCharacteristic.super_.call(this, {
     uuid: '00000000000000000000000000000001',
     properties: ['read'],
     value: new Buffer('value'),
@@ -25,7 +25,7 @@ var StaticReadOnlyCharacteristic = function() {
 util.inherits(StaticReadOnlyCharacteristic, BlenoCharacteristic);
 
 var DynamicReadOnlyCharacteristic = function() {
-  BlenoCharacteristic.call(this, {
+  DynamicReadOnlyCharacteristic.super_.call(this, {
     uuid: '00000000000000000000000000000002',
     properties: ['read']
   });
@@ -46,7 +46,7 @@ DynamicReadOnlyCharacteristic.prototype.onReadRequest = function(offset, callbac
 };
 
 var WriteOnlyCharacteristic = function() {
-  BlenoCharacteristic.call(this, {
+  WriteOnlyCharacteristic.super_.call(this, {
     uuid: '00000000000000000000000000000003',
     properties: ['write', 'writeWithoutResponse']
   });
@@ -61,7 +61,7 @@ WriteOnlyCharacteristic.prototype.onWriteRequest = function(data, offset, withou
 };
 
 var NotifyOnlyCharacteristic = function() {
-  BlenoCharacteristic.call(this, {
+  NotifyOnlyCharacteristic.super_.call(this, {
     uuid: '00000000000000000000000000000004',
     properties: ['notify']
   });
@@ -96,6 +96,19 @@ NotifyOnlyCharacteristic.prototype.onValueUpdate = function() {
   console.log('NotifyOnlyCharacteristic on value update');
 };
 
+function SampleService() {
+  SampleService.super_.call(this, {
+    uuid: '00000000000000000000000000000000',
+    characteristics: [
+      new StaticReadOnlyCharacteristic(),   
+      new DynamicReadOnlyCharacteristic(),
+      new WriteOnlyCharacteristic(),
+      new NotifyOnlyCharacteristic()
+    ]
+  });
+};
+
+util.inherits(SampleService, BlenoPrimaryService);
 
 bleno.on('stateChange', function(state) {
   console.log('on -> stateChange: ' + state);
@@ -111,15 +124,7 @@ bleno.on('advertisingStart', function() {
   console.log('on -> advertisingStart');
 
   bleno.setServices([
-    new BlenoPrimaryService({
-      uuid: '00000000000000000000000000000000',
-      characteristics: [
-        new StaticReadOnlyCharacteristic(),   
-        new DynamicReadOnlyCharacteristic(),
-        new WriteOnlyCharacteristic(),
-        new NotifyOnlyCharacteristic()
-      ]
-    })
+    new SampleService()
   ]);
 });
 
