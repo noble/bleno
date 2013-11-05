@@ -106,7 +106,7 @@ function SampleService() {
       new NotifyOnlyCharacteristic()
     ]
   });
-};
+}
 
 util.inherits(SampleService, BlenoPrimaryService);
 
