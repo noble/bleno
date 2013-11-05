@@ -46,6 +46,35 @@ int hci_le_set_advertising_data(int dd, uint8_t* data, uint8_t length, int to)
   return 0;
 }
 
+int hci_le_set_scan_response_data(int dd, uint8_t* data, uint8_t length, int to)
+{
+  struct hci_request rq;
+  le_set_scan_response_data_cp data_cp;
+  uint8_t status;
+
+  memset(&data_cp, 0, sizeof(data_cp));
+  data_cp.length = length;
+  memcpy(&data_cp.data, data, sizeof(data_cp.data));
+
+  memset(&rq, 0, sizeof(rq));
+  rq.ogf = OGF_LE_CTL;
+  rq.ocf = OCF_LE_SET_SCAN_RESPONSE_DATA;
+  rq.cparam = &data_cp;
+  rq.clen = LE_SET_SCAN_RESPONSE_DATA_CP_SIZE;
+  rq.rparam = &status;
+  rq.rlen = 1;
+
+  if (hci_send_req(dd, &rq, to) < 0)
+    return -1;
+
+  if (status) {
+    errno = EIO;
+    return -1;
+  }
+
+  return 0;
+}
+
 int main(int argc, const char* argv[])
 {
   int hciSocket;
@@ -60,8 +89,10 @@ int main(int argc, const char* argv[])
   int selectRetval;
 
   char stdinBuf[256 * 2 + 1];
-  char eirBuf[256];
-  int eirLen = 0;
+  char advertisementDataBuf[256];
+  int advertisementDataLen = 0;
+  char scanDataBuf[256];
+  int scanDataLen = 0;
   int len;
   int i;
 
@@ -128,8 +159,9 @@ int main(int argc, const char* argv[])
         // restart advertising
         hci_le_set_advertise_enable(hciSocket, 1, 1000);
 
-        // set advertisement data
-        hci_le_set_advertising_data(hciSocket, (uint8_t*)&eirBuf, eirLen, 1000);
+        // set advertisement and scan data
+        hci_le_set_advertising_data(hciSocket, (uint8_t*)&advertisementDataBuf, advertisementDataLen, 1000);
+        hci_le_set_scan_response_data(hciSocket, (uint8_t*)&scanDataBuf, scanDataLen, 1000);
       } 
     } else if (selectRetval) {
       if (FD_ISSET(0, &rfds)) {
@@ -140,25 +172,36 @@ int main(int argc, const char* argv[])
         } 
 
         i = 0;
-        while(stdinBuf[i] != '\n' && i < len) {
-          sscanf(&stdinBuf[i], "%02x", (unsigned int*)&eirBuf[i / 2]);
+        advertisementDataLen = 0;
+        while(i < len && stdinBuf[i] != ' ') {
+          sscanf(&stdinBuf[i], "%02x", (unsigned int*)&advertisementDataBuf[advertisementDataLen]);
 
+          advertisementDataLen++;
           i += 2;
         }
 
-        eirLen = i / 2;
+        i++;
+        scanDataLen = 0;
+        while(i < len && stdinBuf[i] != '\n') {
+          sscanf(&stdinBuf[i], "%02x", (unsigned int*)&scanDataBuf[scanDataLen]);
+
+          scanDataLen++;
+          i += 2;
+        }
 
         // stop advertising
         hci_le_set_advertise_enable(hciSocket, 0, 1000);
 
-        // set advertisement data
-        hci_le_set_advertising_data(hciSocket, (uint8_t*)&eirBuf, eirLen, 1000);
+        // set advertisement and scan data
+        hci_le_set_advertising_data(hciSocket, (uint8_t*)&advertisementDataBuf, advertisementDataLen, 1000);
+        hci_le_set_scan_response_data(hciSocket, (uint8_t*)&scanDataBuf, scanDataLen, 1000);
 
         // start advertising
         hci_le_set_advertise_enable(hciSocket, 1, 1000);
 
         // set advertisement data
-        hci_le_set_advertising_data(hciSocket, (uint8_t*)&eirBuf, eirLen, 1000);
+        hci_le_set_advertising_data(hciSocket, (uint8_t*)&advertisementDataBuf, advertisementDataLen, 1000);
+        hci_le_set_scan_response_data(hciSocket, (uint8_t*)&scanDataBuf, scanDataLen, 1000);
       }
     }
   }
