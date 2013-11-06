@@ -11,7 +11,7 @@ console.log('bleno');
 
 var StaticReadOnlyCharacteristic = function() {
   StaticReadOnlyCharacteristic.super_.call(this, {
-    uuid: '00000000000000000000000000000001',
+    uuid: 'fffffffffffffffffffffffffffffff1',
     properties: ['read'],
     value: new Buffer('value'),
     descriptors: [
@@ -26,7 +26,7 @@ util.inherits(StaticReadOnlyCharacteristic, BlenoCharacteristic);
 
 var DynamicReadOnlyCharacteristic = function() {
   DynamicReadOnlyCharacteristic.super_.call(this, {
-    uuid: '00000000000000000000000000000002',
+    uuid: 'fffffffffffffffffffffffffffffff2',
     properties: ['read']
   });
 };
@@ -47,8 +47,8 @@ DynamicReadOnlyCharacteristic.prototype.onReadRequest = function(offset, callbac
 
 var WriteOnlyCharacteristic = function() {
   WriteOnlyCharacteristic.super_.call(this, {
-    uuid: '00000000000000000000000000000003',
-    properties: ['write', 'writeWithoutResponse']
+    uuid: 'fffffffffffffffffffffffffffffff3',
+    properties: ['write'/*, 'writeWithoutResponse'*/]
   });
 };
 
@@ -62,7 +62,7 @@ WriteOnlyCharacteristic.prototype.onWriteRequest = function(data, offset, withou
 
 var NotifyOnlyCharacteristic = function() {
   NotifyOnlyCharacteristic.super_.call(this, {
-    uuid: '00000000000000000000000000000004',
+    uuid: 'fffffffffffffffffffffffffffffff4',
     properties: ['notify']
   });
 };
@@ -98,7 +98,7 @@ NotifyOnlyCharacteristic.prototype.onValueUpdate = function() {
 
 function SampleService() {
   SampleService.super_.call(this, {
-    uuid: '00000000000000000000000000000000',
+    uuid: 'fffffffffffffffffffffffffffffff0',
     characteristics: [
       new StaticReadOnlyCharacteristic(),   
       new DynamicReadOnlyCharacteristic(),
@@ -114,7 +114,7 @@ bleno.on('stateChange', function(state) {
   console.log('on -> stateChange: ' + state);
 
   if (state === 'poweredOn') {
-    bleno.startAdvertising('test', ['00000000000000000000000000000000']);
+    bleno.startAdvertising('test', ['fffffffffffffffffffffffffffffff0']);
   } else {
     bleno.stopAdvertising();
   }
