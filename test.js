@@ -48,7 +48,7 @@ DynamicReadOnlyCharacteristic.prototype.onReadRequest = function(offset, callbac
 var WriteOnlyCharacteristic = function() {
   WriteOnlyCharacteristic.super_.call(this, {
     uuid: 'fffffffffffffffffffffffffffffff3',
-    properties: ['write'/*, 'writeWithoutResponse'*/]
+    properties: ['write', 'writeWithoutResponse']
   });
 };
 
