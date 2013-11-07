@@ -1,8 +1,6 @@
-var util = require('util');
-
 var bleno = require('./index');
 
-console.log('bleno');
+console.log('bleno - iBeacon');
 
 bleno.on('stateChange', function(state) {
   console.log('on -> stateChange: ' + state);
