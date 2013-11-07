@@ -6,10 +6,14 @@
   "engines": {
     "node": ">=0.8"
   },
-  "os": [ "darwin", "linux" ],
+  "os": [
+    "darwin",
+    "linux"
+  ],
   "scripts": {
     "install": "node install.js",
-    "test": "jshint *.js lib/."
+    "pretest": "jshint *.js lib/. test/.",
+    "test": "mocha -R spec test/*.js"
   },
   "repository": {
     "type": "git",
@@ -26,7 +30,9 @@
   "license": "MIT",
   "readmeFilename": "README.md",
   "devDependencies": {
-    "jshint": "~2.3.0"
+    "jshint": "~2.3.0",
+    "should": "~2.0.2",
+    "mocha": "~1.14.0"
   },
   "dependencies": {
     "debug": "~0.7.2"
