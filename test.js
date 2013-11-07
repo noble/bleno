@@ -92,8 +92,8 @@ NotifyOnlyCharacteristic.prototype.onUnsubscribe = function() {
   }
 };
 
-NotifyOnlyCharacteristic.prototype.onValueUpdate = function() {
-  console.log('NotifyOnlyCharacteristic on value update');
+NotifyOnlyCharacteristic.prototype.onNotify = function() {
+  console.log('NotifyOnlyCharacteristic on notify');
 };
 
 function SampleService() {
