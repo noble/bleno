@@ -1,7 +1,7 @@
 bleno
 =====
 
-A node.js module to implement a BLE (Bluetooth low energy) peripheral.
+A node.js module for implementing BLE (Bluetooth low energy) peripherals.
 
 Need a BLE central module? See [noble](https://github.com/sandeepmistry/noble).
 
