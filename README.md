@@ -89,7 +89,7 @@ __Characteristic__
     var characteristic = new Characteristic({
         uuid: 'fffffffffffffffffffffffffffffff1', // or 'fff1' for 16-bit
         properties: [ ... ], // can be a combination of 'read', 'write', 'writeWithoutResponse', 'notify'
-        value: null, // optional static value, must be of type Buffer if set
+        value: null, // optional static value, must be of type Buffer or string if set
         descriptors: [
             // see Descriptor for data type
         ],
@@ -156,6 +156,15 @@ Notify value changes:
 Call the ```updateValueCallback``` callback (see Notify subcribe), with an argument of type ```Buffer```
 
 Can specify notify sent handler via constructor options or by extending Characteristic and overriding onNotify.
+
+__Descriptor__
+
+    var Descriptor = bleno.Descriptor;
+
+    var descriptor = new Descriptor({
+        uuid: '2901',
+        value: 'value' // static value, must be of type Buffer or string if set
+    });
 
 __Events__
 
