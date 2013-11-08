@@ -1,23 +1,37 @@
 var os = require('os');
-var exec = require('child_process').exec;
+var spawn = require('child_process').spawn;
 
 var platform = os.platform();
 
 console.log('bleno install: platform is "' + platform + "'");
 
+var npmInstall = function(package, callback) {
+
+};
+
 if (platform === 'darwin') {
   console.log('bleno install: installing xpc-connection ...');
 
-  exec('npm install xpc-connection@~0.0.3', function(error, stdout, stderr) {
+  var npmInstall = spawn('npm', ['install', 'xpc-connection@~0.0.3'], {
+    stdio: 'inherit'
+  });
+
+  npmInstall.on('close', function(code) {
     console.log('bleno install: done');
-    process.exit(error ? -1 : 0);
+
+    process.exit(code);
   });
 } else if (platform === 'linux') {
   console.log('bleno install: running node-gyp ...');
 
-  exec('node-gyp configure build', function(error, stdout, stderr) {
+  var nodeGypConfigureBuild = spawn('node-gyp', ['configure', 'build'], {
+    stdio: 'inherit'
+  });
+
+  nodeGypConfigureBuild.on('close', function(code) {
     console.log('bleno install: done');
-    process.exit(error ? -1 : 0);
+
+    process.exit(code);
   });
 } else {
   console.error('bleno install: Your platform is not supported!');
