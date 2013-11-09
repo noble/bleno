@@ -38,7 +38,7 @@ Start advertising:
     var name = 'name';
     var serviceUuids = ['fffffffffffffffffffffffffffffff0']
 
-    bleno.startAdverting(name, serviceUuids[, callback(error)]);
+    bleno.startAdvertising(name, serviceUuids[, callback(error)]);
 
  __Note:__: adveristing params are limited 22 - 28 bytes, some maximums combination examples:
 
