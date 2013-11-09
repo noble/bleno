@@ -89,7 +89,7 @@ __Characteristic__
     var characteristic = new Characteristic({
         uuid: 'fffffffffffffffffffffffffffffff1', // or 'fff1' for 16-bit
         properties: [ ... ], // can be a combination of 'read', 'write', 'writeWithoutResponse', 'notify'
-        value: null, // optional static value, must be of type Buffer or string if set
+        value: null, // optional static value, must be of type Buffer
         descriptors: [
             // see Descriptor for data type
         ],
