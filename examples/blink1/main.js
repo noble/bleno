@@ -20,11 +20,13 @@ bleno.on('stateChange', function(state) {
   }
 });
 
-bleno.on('advertisingStart', function() {
-  console.log('on -> advertisingStart');
+bleno.on('advertisingStart', function(error) {
+  console.log('on -> advertisingStart ' + error);
   
-  bleno.setServices([
-    deviceInformationService,
-    blink1Service
-  ]);
+  if (!error) {
+    bleno.setServices([
+      deviceInformationService,
+      blink1Service
+    ]);
+  }
 });

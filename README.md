@@ -176,7 +176,9 @@ Adapter state change:
 
 Advertisement started:
 
-    bleno.on('advertisingStart', callback);
+    bleno.on('advertisingStart', callback(error));
+
+    bleno.on('advertisingStartError', callback(error));
 
 Advertisement stopped:
 

@@ -120,12 +120,14 @@ bleno.on('stateChange', function(state) {
   }
 });
 
-bleno.on('advertisingStart', function() {
-  console.log('on -> advertisingStart');
+bleno.on('advertisingStart', function(error) {
+  console.log('on -> advertisingStart ' + error);
 
-  bleno.setServices([
-    new SampleService()
-  ]);
+  if (!error) {
+    bleno.setServices([
+      new SampleService()
+    ]);
+  }
 });
 
 bleno.on('advertisingStop', function() {
