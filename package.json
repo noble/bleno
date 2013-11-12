@@ -12,7 +12,7 @@
   ],
   "scripts": {
     "install": "node install.js",
-    "pretest": "jshint *.js lib/. test/.",
+    "pretest": "jshint *.js lib/. test/. examples/.",
     "test": "mocha -R spec test/*.js"
   },
   "repository": {
@@ -32,7 +32,8 @@
   "devDependencies": {
     "jshint": "~2.3.0",
     "should": "~2.0.2",
-    "mocha": "~1.14.0"
+    "mocha": "~1.14.0",
+    "node-blink1": "~0.1.1"
   },
   "dependencies": {
     "debug": "~0.7.2"

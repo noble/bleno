@@ -29,7 +29,7 @@ Usage
 
     var bleno = require('bleno');
     
-See [test.js](https://github.com/sandeepmistry/bleno/blob/master/test.js) for code example for now, more examples will be created in the future.
+See [examples folder](https://github.com/sandeepmistry/bleno/blob/master/examples) for code examples.
 
 __Actions__
 
