@@ -252,6 +252,15 @@ Roadmap (TODO)
  * Windows
    * TDB (most likely Windows 8 only)
 
+Useful tools/links
+==================
+
+ * Tools
+   * LightBlue for [iOS](https://itunes.apple.com/us/app/lightblue/id557428110)/[OS X](https://itunes.apple.com/us/app/lightblue/id639944780)
+   * [nRF Master Control Panel (BLE)](https://play.google.com/store/apps/details?id=no.nordicsemi.android.mcp&hl=en) for Android
+   * [hcitool](http://linux.die.net/man/1/hcitool) and ```gatttool``` by [BlueZ](http://www.bluez.org) for Linux
+
+
    
 License
 ========
