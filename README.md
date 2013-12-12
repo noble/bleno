@@ -59,6 +59,15 @@ Start advertising iBeacon:
 
  __Note:__: on OS X, in iBeacon mode your peripheral is non-connectable!
 
+Start advertising with EIR data (__Linux only__):
+
+    var scanData = new Buffer(...); // maximum 31 bytes
+    var advertisementData = new Buffer(...); // maximum 31 bytes
+
+    bleno.startAdvertisingWithEIRData(advertisementData, scanData[, callback(error)]);
+
+  * For EIR format section [Bluetooth Core Specification](https://www.bluetooth.org/docman/handlers/downloaddoc.ashx?doc_id=229737) sections and 8 and 18 for more information the data format.
+
 Stop advertising:
 
     bleno.stopAdvertising();
