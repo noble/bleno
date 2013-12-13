@@ -111,6 +111,11 @@ int main(int argc, const char* argv[])
   if (hciDeviceIdOverride != NULL) {
     hciDeviceId = atoi(hciDeviceIdOverride);
   }
+  else
+  {
+		// if no env variable given, use the first available device
+		hciDeviceId = hci_get_route(NULL);
+  }
 
   // setup HCI socket
   hciSocket = hci_open_dev(hciDeviceId);
