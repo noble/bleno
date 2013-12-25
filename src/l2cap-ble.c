@@ -31,6 +31,9 @@ int main(int argc, const char* argv[]) {
   char l2capSockBuf[256];
   int len;
   int i;
+  struct bt_security btSecurity;
+  socklen_t btSecurityLen;
+  uint8_t securityLevel = 0;
 
   // setup signal handlers
   signal(SIGINT, signalHandler);
@@ -116,6 +119,36 @@ int main(int argc, const char* argv[]) {
 
             if (len <= 0) {
               break;
+            }
+
+            btSecurityLen = sizeof(btSecurity);
+            memset(&btSecurity, 0, btSecurityLen);
+            getsockopt(clientL2capSock, SOL_BLUETOOTH, BT_SECURITY, &btSecurity, &btSecurityLen);
+
+            if (securityLevel != btSecurity.level) {
+              securityLevel = btSecurity.level;
+
+              const char *securityLevelString;
+
+              switch(securityLevel) {
+                case BT_SECURITY_LOW:
+                  securityLevelString = "low";
+                  break;
+
+                case BT_SECURITY_MEDIUM:
+                  securityLevelString = "medium";
+                  break;
+
+                case BT_SECURITY_HIGH:
+                  securityLevelString = "high";
+                  break;
+
+                default:
+                  securityLevelString = "unknown";
+                  break;
+              }
+
+              printf("security %s\n", securityLevelString);
             }
 
             printf("data ");
