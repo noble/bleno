@@ -5,6 +5,7 @@ var Characteristic = require('../lib/characteristic');
 describe('Characteristic', function() {
   var mockUuid = 'mock-uuid';
   var mockProperties = ['property1', 'property2', 'property3'];
+  var mockSecure = ['secure1', 'secure2', 'secure3'];
   var mockValue = new Buffer('mock value');
   var mockDescriptors = [{}, {}, {}];
 
@@ -27,6 +28,9 @@ describe('Characteristic', function() {
     Array.isArray(characteristic.properties).should.equal(true);
     characteristic.properties.length.should.equal(0);
 
+    Array.isArray(characteristic.secure).should.equal(true);
+    characteristic.secure.length.should.equal(0);
+
     should(characteristic.value).equal(null);
 
     Array.isArray(characteristic.descriptors).should.equal(true);
@@ -39,6 +43,14 @@ describe('Characteristic', function() {
     });
 
     characteristic.properties.should.equal(mockProperties);
+  });
+
+  it('should create with secure option', function() {
+    var characteristic = new Characteristic({
+      secure: mockSecure
+    });
+
+    characteristic.secure.should.equal(mockSecure);
   });
 
   it('should create with value option', function() {
@@ -102,7 +114,7 @@ describe('Characteristic', function() {
       uuid: mockUuid
     });
 
-    characteristic.toString().should.equal('{"uuid":"mock-uuid","properties":[],"value":null,"descriptors":[]}');
+    characteristic.toString().should.equal('{"uuid":"mock-uuid","properties":[],"secure":[],"value":null,"descriptors":[]}');
   });
 
   it('should handle read request', function(done) {
