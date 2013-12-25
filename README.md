@@ -98,6 +98,7 @@ __Characteristic__
     var characteristic = new Characteristic({
         uuid: 'fffffffffffffffffffffffffffffff1', // or 'fff1' for 16-bit
         properties: [ ... ], // can be a combination of 'read', 'write', 'writeWithoutResponse', 'notify'
+        secure: [ ... ], // enable security for properties, can be a combination of 'read', 'write', 'writeWithoutResponse', 'notify'
         value: null, // optional static value, must be of type Buffer
         descriptors: [
             // see Descriptor for data type
@@ -229,7 +230,7 @@ Roadmap (TODO)
            * ~~notify (subscribe, unsubscribe, value changed)~~
            * broadcast (not possible)
            * indicate (not possible)
-           * secure
+           * secure (not functioning, OS X issues)
               * read
               * write
          * ~~Descriptors~~
@@ -258,9 +259,9 @@ Roadmap (TODO)
            * ~~notify (subscribe, unsubscribe, value changed)~~
            * broadcast (maybe ?)
            * indicate (maybe ?)
-           * secure
-               * read
-               * write
+           * ~~secure~~
+               * ~~read~~
+               * ~~write~~
          * ~~Descriptors~~
            * ~~UUID~~
            * ~~read (static)~~
