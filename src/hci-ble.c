@@ -117,6 +117,10 @@ int main(int argc, const char* argv[])
 		hciDeviceId = hci_get_route(NULL);
   }
 
+  if (hciDeviceId < 0) {
+    hciDeviceId = 0; // use device 0, if device id is invalid
+  }
+
   // setup HCI socket
   hciSocket = hci_open_dev(hciDeviceId);
   hciDevInfo.dev_id = hciDeviceId;
