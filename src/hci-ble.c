@@ -177,11 +177,13 @@ int main(int argc, const char* argv[])
         hci_le_set_advertise_enable(hciSocket, 0, 1000);
       } else if (SIGUSR1 == lastSignal) {
         // restart advertising
-        hci_le_set_advertise_enable(hciSocket, 1, 1000);
+        hci_le_set_advertise_enable(hciSocket, 0, 1000);
 
         // set advertisement and scan data
         hci_le_set_advertising_data(hciSocket, (uint8_t*)&advertisementDataBuf, advertisementDataLen, 1000);
         hci_le_set_scan_response_data(hciSocket, (uint8_t*)&scanDataBuf, scanDataLen, 1000);
+
+        hci_le_set_advertise_enable(hciSocket, 1, 1000);
       } 
     } else if (selectRetval) {
       if (FD_ISSET(0, &rfds)) {
@@ -218,10 +220,6 @@ int main(int argc, const char* argv[])
 
         // start advertising
         hci_le_set_advertise_enable(hciSocket, 1, 1000);
-
-        // set advertisement data
-        hci_le_set_advertising_data(hciSocket, (uint8_t*)&advertisementDataBuf, advertisementDataLen, 1000);
-        hci_le_set_scan_response_data(hciSocket, (uint8_t*)&scanDataBuf, scanDataLen, 1000);
       }
     }
   }
