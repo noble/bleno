@@ -40,12 +40,14 @@ Start advertising:
 
     bleno.startAdvertising(name, serviceUuids[, callback(error)]);
 
- __Note:__: adveristing params are limited 22 - 28 bytes, some maximums combination examples:
+ __Note:__: there are limits on the name and service UUID's
 
-  * 28 byte name
-  * 1 128-bit service UUID + 9 byte name
-  * 1 128-bit service UUID + 1 16-bit service UUID's
-  * 7 16-bit service UUID
+  * name
+    * maximum 26 bytes
+  * service UUID's
+    * 1 128-bit service UUID
+    * 1 128-bit service UUID + 2 16-bit service UUID's
+    * 7 16-bit service UUID
 
 
 Start advertising iBeacon:
@@ -70,7 +72,7 @@ Start advertising with EIR data (__Linux only__):
 
 Stop advertising:
 
-    bleno.stopAdvertising();
+    bleno.stopAdvertising([callback]);
 
 Set services:
 
