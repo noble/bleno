@@ -1,9 +1,13 @@
 #include <errno.h>
 #include <signal.h>
 #include <sys/prctl.h>
+#include <sys/ioctl.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 #include <bluetooth/bluetooth.h>
+#include <bluetooth/hci.h>
+#include <bluetooth/hci_lib.h>
 #include <bluetooth/l2cap.h>
 
 #define ATT_CID 4
@@ -12,6 +16,54 @@ int lastSignal = 0;
 
 static void signalHandler(int signal) {
   lastSignal = signal;
+}
+
+static int getAdapterId() {
+  char* hciDeviceIdOverride;
+  int hciDeviceId = 0;
+
+  hciDeviceIdOverride = getenv("BLENO_HCI_DEVICE_ID");
+  if (hciDeviceIdOverride != NULL) {
+    hciDeviceId = atoi(hciDeviceIdOverride);
+  } else {
+    // if no env variable given, use the first available device
+    hciDeviceId = hci_get_route(NULL);
+  }
+
+  if (hciDeviceId < 0) {
+    hciDeviceId = 0; // use device 0, if device id is invalid
+  }
+
+  return hciDeviceId;
+}
+
+static bdaddr_t getAdapterAddress(int deviceId) {
+  int ctl;
+  struct hci_dev_info di;
+
+  ctl = socket(AF_BLUETOOTH, SOCK_RAW, BTPROTO_HCI);
+  if (ctl < 0) {
+    fprintf(stderr, "Error code %d: %s\n", errno, strerror(errno));
+    exit(1);
+  }
+
+  di.dev_id = deviceId;
+  if (ioctl(ctl, HCIGETDEVINFO, (void*)&di) < 0) {
+    fprintf(stderr, "Can't get device info\n");
+    exit(1);
+  }
+
+  if (hci_test_bit(HCI_RAW, &di.flags) &&
+                   !bacmp(&di.bdaddr, BDADDR_ANY)) {
+    int dd = hci_open_dev(di.dev_id);
+    hci_read_bd_addr(dd, &di.bdaddr, 1000);
+    hci_close_dev(dd);
+
+    return di.bdaddr;
+  } else {
+    return di.bdaddr;
+  }
+
 }
 
 int main(int argc, const char* argv[]) {
@@ -48,7 +100,7 @@ int main(int argc, const char* argv[]) {
   // bind
   memset(&sockAddr, 0, sizeof(sockAddr));
   sockAddr.l2_family = AF_BLUETOOTH;
-  sockAddr.l2_bdaddr = *BDADDR_ANY;
+  sockAddr.l2_bdaddr = getAdapterAddress(getAdapterId());
   sockAddr.l2_cid = htobs(ATT_CID);
 
   result = bind(serverL2capSock, (struct sockaddr*)&sockAddr, sizeof(sockAddr));
