@@ -34,6 +34,11 @@ int main(int argc, const char* argv[]) {
   struct bt_security btSecurity;
   socklen_t btSecurityLen;
   uint8_t securityLevel = 0;
+  
+  // remove buffering 
+  setbuf(stdin, NULL);
+  setbuf(stdout, NULL);
+  setbuf(stderr, NULL);
 
   // setup signal handlers
   signal(SIGINT, signalHandler);
