@@ -98,6 +98,11 @@ int main(int argc, const char* argv[])
   int i;
 
   memset(&hciDevInfo, 0x00, sizeof(hciDevInfo));
+  
+  // remove buffering 
+  setbuf(stdin, NULL);
+  setbuf(stdout, NULL);
+  setbuf(stderr, NULL);
 
   // setup signal handlers
   signal(SIGINT, signalHandler);
