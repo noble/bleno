@@ -2,8 +2,11 @@
 #include <signal.h>
 #include <sys/prctl.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 #include <bluetooth/bluetooth.h>
+#include <bluetooth/hci.h>
+#include <bluetooth/hci_lib.h>
 #include <bluetooth/l2cap.h>
 
 #define ATT_CID 4
@@ -16,6 +19,10 @@ static void signalHandler(int signal) {
 
 int main(int argc, const char* argv[]) {
 
+  char *hciDeviceIdOverride = NULL;
+  int hciDeviceId = 0;
+  int hciSocket;
+  
   int serverL2capSock;
   struct sockaddr_l2 sockAddr;
   socklen_t sockAddrLen;
@@ -44,11 +51,34 @@ int main(int argc, const char* argv[]) {
 
   // create socket
   serverL2capSock = socket(AF_BLUETOOTH, SOCK_SEQPACKET, BTPROTO_L2CAP);
+  
+  hciDeviceIdOverride = getenv("BLENO_HCI_DEVICE_ID");
+  if (hciDeviceIdOverride != NULL) {
+    hciDeviceId = atoi(hciDeviceIdOverride);
+  } else {
+    // if no env variable given, use the first available device
+    hciDeviceId = hci_get_route(NULL);
+  }
+
+  if (hciDeviceId < 0) {
+    hciDeviceId = 0; // use device 0, if device id is invalid
+  }
+  
+  bdaddr_t daddr;
+  hciSocket = hci_open_dev(hciDeviceId);
+  if (hciSocket == -1) {
+    printf("adapterState unsupported\n");
+    return -1;
+  }
+  if (hci_read_bd_addr(hciSocket, &daddr, 1000) == -1){
+    daddr = *BDADDR_ANY;
+  }
+  close(hciSocket);
 
   // bind
   memset(&sockAddr, 0, sizeof(sockAddr));
   sockAddr.l2_family = AF_BLUETOOTH;
-  sockAddr.l2_bdaddr = *BDADDR_ANY;
+  sockAddr.l2_bdaddr = daddr;
   sockAddr.l2_cid = htobs(ATT_CID);
 
   result = bind(serverL2capSock, (struct sockaddr*)&sockAddr, sizeof(sockAddr));
