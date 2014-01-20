@@ -194,8 +194,9 @@ int main(int argc, const char* argv[])
         i = 0;
         advertisementDataLen = 0;
         while(i < len && stdinBuf[i] != ' ') {
-          sscanf(&stdinBuf[i], "%02x", (unsigned int*)&advertisementDataBuf[advertisementDataLen]);
-
+          unsigned int data = 0;
+          sscanf(&stdinBuf[i], "%02x", &data);
+          advertisementDataBuf[advertisementDataLen] = data;
           advertisementDataLen++;
           i += 2;
         }
@@ -203,8 +204,9 @@ int main(int argc, const char* argv[])
         i++;
         scanDataLen = 0;
         while(i < len && stdinBuf[i] != '\n') {
-          sscanf(&stdinBuf[i], "%02x", (unsigned int*)&scanDataBuf[scanDataLen]);
-
+          unsigned int data = 0;
+          sscanf(&stdinBuf[i], "%02x", &data);
+          scanDataBuf[scanDataLen] = data;
           scanDataLen++;
           i += 2;
         }
