@@ -141,8 +141,9 @@ int main(int argc, const char* argv[]) {
 
             i = 0;
             while(stdinBuf[i] != '\n') {
-              sscanf(&stdinBuf[i], "%02x", (unsigned int*)&l2capSockBuf[i / 2]);
-
+              unsigned int data = 0;
+              sscanf(&stdinBuf[i], "%02x", &data);
+              l2capSockBuf[i / 2] = data;
               i += 2;
             }
 
