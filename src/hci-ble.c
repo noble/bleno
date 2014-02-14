@@ -199,6 +199,7 @@ int main(int argc, const char* argv[])
     }else {
         haveConn = 1;
     }
+    free(cl);
 
     selectRetval = select(hciSocket + 1, &rfds, NULL, NULL, &tv);
 
