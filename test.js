@@ -120,6 +120,16 @@ bleno.on('stateChange', function(state) {
   }
 });
 
+bleno.on('accept', function() {
+  console.log('on -> accept');
+  // timer to disconnect
+  //this.changeInterval = setInterval(function() {
+  //  console.log('Timeout to disconnect');
+  //  clearInterval(this.changeInterval);
+  //  bleno.disconnect();
+  //}.bind(this), 5000);
+});
+
 bleno.on('advertisingStart', function(error) {
   console.log('on -> advertisingStart: ' + (error ? 'error ' + error : 'success'));
 

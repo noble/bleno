@@ -51,6 +51,7 @@ int main(int argc, const char* argv[]) {
   signal(SIGINT, signalHandler);
   signal(SIGKILL, signalHandler);
   signal(SIGHUP, signalHandler);
+  signal(SIGUSR1, signalHandler);
 
   prctl(PR_SET_PDEATHSIG, SIGINT);
 
@@ -107,6 +108,9 @@ int main(int argc, const char* argv[]) {
       if (SIGINT == lastSignal || SIGKILL == lastSignal) {
         break;
       }
+      if (SIGUSR1 == lastSignal){
+        result = 0;
+      }
     } else if (result && FD_ISSET(serverL2capSock, &afds)) {
       sockAddrLen = sizeof(sockAddr);
       clientL2capSock = accept(serverL2capSock, (struct sockaddr *)&sockAddr, &sockAddrLen);
@@ -125,8 +129,14 @@ int main(int argc, const char* argv[]) {
         result = select(clientL2capSock + 1, &rfds, NULL, NULL, &tv);
 
         if (-1 == result) {
-          if (SIGINT == lastSignal || SIGKILL == lastSignal || SIGHUP == lastSignal) {
+          if (SIGINT == lastSignal || SIGKILL == lastSignal || SIGHUP == lastSignal || SIGUSR1 == lastSignal) {
             if (SIGHUP == lastSignal) {
+              result = 0;
+            }
+            if (SIGUSR1 == lastSignal) {
+              if (clientL2capSock){
+                close(clientL2capSock);
+              }
               result = 0;
             }
             break;
@@ -198,6 +208,7 @@ int main(int argc, const char* argv[]) {
 
       printf("disconnect %s\n", batostr(&clientBdAddr));
       close(clientL2capSock);
+      clientL2capSock = 0;
     }
   }
 
