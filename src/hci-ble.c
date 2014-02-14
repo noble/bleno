@@ -96,6 +96,7 @@ int main(int argc, const char* argv[])
   int scanDataLen = 0;
   int len;
   int i;
+  int haveConn = 0;
 
   memset(&hciDevInfo, 0x00, sizeof(hciDevInfo));
   
@@ -167,6 +168,36 @@ int main(int argc, const char* argv[])
       }
 
       printf("adapterState %s\n", adapterState);
+    }
+
+    // check if we need to restart advertising
+    // TODO how check if advertising is stopped
+    int conn_size = 10;
+    struct hci_conn_list_req *cl;
+    struct hci_conn_info *ci;
+    // alocate memory for conn info 
+    cl = malloc(conn_size* sizeof(*ci) + sizeof(*cl));
+    cl->dev_id = hciDeviceId;
+    cl->conn_num = conn_size;
+    ci = cl->conn_info;
+    // get conn info
+    ioctl(hciSocket, HCIGETCONNLIST, (void *) cl);
+    if (cl->conn_num == 0) {
+        if (haveConn) {
+            // set scan data
+            hci_le_set_scan_response_data(hciSocket, (uint8_t*)&scanDataBuf, scanDataLen, 1000);
+
+            // start advertising
+            hci_le_set_advertise_enable(hciSocket, 1, 1000);
+
+            // set advertisement data
+            hci_le_set_advertising_data(hciSocket, (uint8_t*)&advertisementDataBuf, advertisementDataLen, 1000);
+
+            // reset that we have active connections
+            haveConn = 0;
+        }
+    }else {
+        haveConn = 1;
     }
 
     selectRetval = select(hciSocket + 1, &rfds, NULL, NULL, &tv);

@@ -51,6 +51,7 @@ int main(int argc, const char* argv[]) {
   signal(SIGINT, signalHandler);
   signal(SIGKILL, signalHandler);
   signal(SIGHUP, signalHandler);
+  signal(SIGUSR1, signalHandler);
 
   prctl(PR_SET_PDEATHSIG, SIGINT);
 
@@ -125,8 +126,12 @@ int main(int argc, const char* argv[]) {
         result = select(clientL2capSock + 1, &rfds, NULL, NULL, &tv);
 
         if (-1 == result) {
-          if (SIGINT == lastSignal || SIGKILL == lastSignal || SIGHUP == lastSignal) {
+          if (SIGINT == lastSignal || SIGKILL == lastSignal || SIGHUP == lastSignal || SIGUSR1 == lastSignal) {
             if (SIGHUP == lastSignal) {
+              result = 0;
+            }
+            if (SIGUSR1 == lastSignal) {
+              close(clientL2capSock);
               result = 0;
             }
             break;
