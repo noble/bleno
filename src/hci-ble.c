@@ -178,8 +178,6 @@ int main(int argc, const char* argv[])
     // alocate memory for conn info 
     cl = malloc(conn_size* sizeof(*ci) + sizeof(*cl));
     cl->dev_id = hciDeviceId;
-    cl->conn_num = conn_size;
-    ci = cl->conn_info;
     // get conn info
     ioctl(hciSocket, HCIGETCONNLIST, (void *) cl);
     if (cl->conn_num == 0) {
