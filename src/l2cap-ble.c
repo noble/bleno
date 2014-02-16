@@ -54,7 +54,6 @@ int main(int argc, const char* argv[]) {
   signal(SIGINT, signalHandler);
   signal(SIGKILL, signalHandler);
   signal(SIGHUP, signalHandler);
-  signal(SIGUSR1, signalHandler);
 
   prctl(PR_SET_PDEATHSIG, SIGINT);
 
@@ -109,6 +108,8 @@ int main(int argc, const char* argv[]) {
     if (-1 == result) {
       if (SIGINT == lastSignal || SIGKILL == lastSignal) {
         break;
+      } else if (SIGHUP == lastSignal) {
+        result = 0;
       }
     } else if (result && FD_ISSET(serverL2capSock, &afds)) {
       sockAddrLen = sizeof(sockAddr);
