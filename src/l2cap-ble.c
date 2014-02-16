@@ -29,6 +29,9 @@ int main(int argc, const char* argv[]) {
   int result;
   bdaddr_t clientBdAddr;
   int clientL2capSock;
+  struct l2cap_conninfo l2capConnInfo;
+  socklen_t l2capConnInfoLen;
+  int hciHandle;
 
   fd_set afds;
   fd_set rfds;
@@ -79,7 +82,6 @@ int main(int argc, const char* argv[]) {
   if (hci_read_bd_addr(hciSocket, &daddr, 1000) == -1){
     daddr = *BDADDR_ANY;
   }
-  close(hciSocket);
 
   // bind
   memset(&sockAddr, 0, sizeof(sockAddr));
@@ -108,15 +110,16 @@ int main(int argc, const char* argv[]) {
       if (SIGINT == lastSignal || SIGKILL == lastSignal) {
         break;
       }
-      if (SIGUSR1 == lastSignal){
-        result = 0;
-      }
     } else if (result && FD_ISSET(serverL2capSock, &afds)) {
       sockAddrLen = sizeof(sockAddr);
       clientL2capSock = accept(serverL2capSock, (struct sockaddr *)&sockAddr, &sockAddrLen);
 
       baswap(&clientBdAddr, &sockAddr.l2_bdaddr);
       printf("accept %s\n", batostr(&clientBdAddr));
+
+      l2capConnInfoLen = sizeof(l2capConnInfo);
+      getsockopt(clientL2capSock, SOL_L2CAP, L2CAP_CONNINFO, &l2capConnInfo, &l2capConnInfoLen);
+      hciHandle = l2capConnInfo.hci_handle;
 
       while(1) {
         FD_ZERO(&rfds);
@@ -129,17 +132,12 @@ int main(int argc, const char* argv[]) {
         result = select(clientL2capSock + 1, &rfds, NULL, NULL, &tv);
 
         if (-1 == result) {
-          if (SIGINT == lastSignal || SIGKILL == lastSignal || SIGHUP == lastSignal || SIGUSR1 == lastSignal) {
-            if (SIGHUP == lastSignal) {
-              result = 0;
-            }
-            if (SIGUSR1 == lastSignal) {
-              if (clientL2capSock){
-                close(clientL2capSock);
-              }
-              result = 0;
-            }
+          if (SIGINT == lastSignal || SIGKILL == lastSignal) {
             break;
+          } else if (SIGHUP == lastSignal) {
+            result = 0;
+
+            hci_disconnect(hciSocket, hciHandle, HCI_OE_USER_ENDED_CONNECTION, 1000);
           }
         } else if (result) {
           if (FD_ISSET(0, &rfds)) {
@@ -208,12 +206,12 @@ int main(int argc, const char* argv[]) {
 
       printf("disconnect %s\n", batostr(&clientBdAddr));
       close(clientL2capSock);
-      clientL2capSock = 0;
     }
   }
 
   printf("close\n");
   close(serverL2capSock);
+  close(hciSocket);
 
   return 0;
 }

@@ -120,15 +120,15 @@ bleno.on('stateChange', function(state) {
   }
 });
 
+// Linux only events /////////////////
 bleno.on('accept', function() {
   console.log('on -> accept');
-  // timer to disconnect
-  //this.changeInterval = setInterval(function() {
-  //  console.log('Timeout to disconnect');
-  //  clearInterval(this.changeInterval);
-  //  bleno.disconnect();
-  //}.bind(this), 5000);
 });
+
+bleno.on('disconnect', function() {
+  console.log('on -> disconnect');
+});
+//////////////////////////////////////
 
 bleno.on('advertisingStart', function(error) {
   console.log('on -> advertisingStart: ' + (error ? 'error ' + error : 'success'));
