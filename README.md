@@ -82,6 +82,10 @@ Set services:
 
     bleno.setServices(services[, callback(error)]);
 
+Disconnect client:
+
+    bleno.disconnect(); // Linux only
+
 __Primary Service__
 
     var PrimaryService = bleno.PrimaryService;
@@ -200,6 +204,14 @@ Services set:
 
     bleno.on('servicesSet', callback);
 
+Accept:
+
+    bleno.on('accept', callback); // Linux only
+
+Disconnect:
+
+    bleno.on('disconnct', callback); // Linux only
+
 Running on Linux
 -----------------
 Must be run with ```sudo``` or as root user.
@@ -231,7 +243,7 @@ Roadmap (TODO)
            * ~~write without response~~
            * ~~notify (subscribe, unsubscribe, value changed)~~
            * broadcast (not possible)
-           * indicate (not possible)
+           * ~~indicate~~
            * secure (not functioning, OS X issues)
               * read
               * write
