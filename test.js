@@ -128,6 +128,10 @@ bleno.on('accept', function() {
 bleno.on('disconnect', function() {
   console.log('on -> disconnect');
 });
+
+bleno.on('rssiUpdate', function(rssi) {
+  console.log('on -> rssiUpdate: ' + rssi);
+});
 //////////////////////////////////////
 
 bleno.on('advertisingStart', function(error) {
