@@ -54,6 +54,7 @@ int main(int argc, const char* argv[]) {
   signal(SIGINT, signalHandler);
   signal(SIGKILL, signalHandler);
   signal(SIGHUP, signalHandler);
+  signal(SIGUSR1, signalHandler);
 
   prctl(PR_SET_PDEATHSIG, SIGINT);
 
@@ -108,7 +109,7 @@ int main(int argc, const char* argv[]) {
     if (-1 == result) {
       if (SIGINT == lastSignal || SIGKILL == lastSignal) {
         break;
-      } else if (SIGHUP == lastSignal) {
+      } else if (SIGHUP == lastSignal || SIGUSR1 == lastSignal) {
         result = 0;
       }
     } else if (result && FD_ISSET(serverL2capSock, &afds)) {
@@ -139,6 +140,22 @@ int main(int argc, const char* argv[]) {
             result = 0;
 
             hci_disconnect(hciSocket, hciHandle, HCI_OE_USER_ENDED_CONNECTION, 1000);
+          }else if (SIGUSR1 == lastSignal) {
+            int8_t rssi = 0;
+
+            for (i = 0; i < 100; i++) {
+              hci_read_rssi(hciSocket, hciHandle, &rssi, 1000);
+
+              if (rssi != 0) {
+                break;
+              }
+            }
+            
+            if (rssi == 0) {
+              rssi = 127;
+            }
+
+            printf("rssi = %d\n", rssi);
           }
         } else if (result) {
           if (FD_ISSET(0, &rfds)) {
