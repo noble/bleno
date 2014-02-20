@@ -140,7 +140,7 @@ int main(int argc, const char* argv[]) {
             result = 0;
 
             hci_disconnect(hciSocket, hciHandle, HCI_OE_USER_ENDED_CONNECTION, 1000);
-          }else if (SIGUSR1 == lastSignal) {
+          } else if (SIGUSR1 == lastSignal) {
             int8_t rssi = 0;
 
             for (i = 0; i < 100; i++) {
