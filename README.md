@@ -86,6 +86,10 @@ Disconnect client:
 
     bleno.disconnect(); // Linux only
 
+Update RSSI:
+
+    bleno.updateRssi([callback(error, rssi)]); // Linux only
+
 __Primary Service__
 
     var PrimaryService = bleno.PrimaryService;
@@ -211,6 +215,10 @@ Accept:
 Disconnect:
 
     bleno.on('disconnct', callback); // Linux only
+
+RSSI Update:
+
+    bleno.on('rssiUpdate', callback(rssi)); // Linux only
 
 Running on Linux
 -----------------
