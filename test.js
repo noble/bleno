@@ -123,6 +123,8 @@ bleno.on('stateChange', function(state) {
 // Linux only events /////////////////
 bleno.on('accept', function() {
   console.log('on -> accept');
+
+  bleno.updateRssi();
 });
 
 bleno.on('disconnect', function() {
