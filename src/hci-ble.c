@@ -151,7 +151,10 @@ int main(int argc, const char* argv[])
       if (!currentAdapterState) {
         adapterState = "poweredOff";
       } else {
+        hci_le_set_advertise_enable(hciSocket, 0, 1000);
+
         hci_le_set_advertise_enable(hciSocket, 1, 1000);
+        
         if (hci_le_set_advertise_enable(hciSocket, 0, 1000) == -1) {
           if (EPERM == errno) {
             adapterState = "unauthorized";
@@ -184,9 +187,15 @@ int main(int argc, const char* argv[])
 
         // set scan data
         hci_le_set_scan_response_data(hciSocket, (uint8_t*)&scanDataBuf, scanDataLen, 1000);
+        
+        // set advertisement data
+        hci_le_set_advertising_data(hciSocket, (uint8_t*)&advertisementDataBuf, advertisementDataLen, 1000);
 
         // start advertising
         hci_le_set_advertise_enable(hciSocket, 1, 1000);
+
+        // set scan data
+        hci_le_set_scan_response_data(hciSocket, (uint8_t*)&scanDataBuf, scanDataLen, 1000);
         
         // set advertisement data
         hci_le_set_advertising_data(hciSocket, (uint8_t*)&advertisementDataBuf, advertisementDataLen, 1000);
@@ -225,8 +234,14 @@ int main(int argc, const char* argv[])
         // set scan data
         hci_le_set_scan_response_data(hciSocket, (uint8_t*)&scanDataBuf, scanDataLen, 1000);
 
+        // set advertisement data
+        hci_le_set_advertising_data(hciSocket, (uint8_t*)&advertisementDataBuf, advertisementDataLen, 1000);
+
         // start advertising
         hci_le_set_advertise_enable(hciSocket, 1, 1000);
+
+        // set scan data
+        hci_le_set_scan_response_data(hciSocket, (uint8_t*)&scanDataBuf, scanDataLen, 1000);
 
         // set advertisement data
         hci_le_set_advertising_data(hciSocket, (uint8_t*)&advertisementDataBuf, advertisementDataLen, 1000);
