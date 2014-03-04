@@ -3,7 +3,7 @@ var should = require('should');
 var PrimaryService = require('../lib/primary-service');
 
 describe('PrimaryService', function() {
-  var mockUuid = 'mock-uuid';
+  var mockUuid = 'mockuuid';
   var mockCharacteristics = [{}, {}, {}];
 
   it('should create with uuid option', function() {
@@ -30,6 +30,6 @@ describe('PrimaryService', function() {
       uuid: mockUuid
     });
 
-    service.toString().should.equal('{"uuid":"mock-uuid","characteristics":[]}');
+    service.toString().should.equal('{"uuid":"mockuuid","characteristics":[]}');
   });
 });

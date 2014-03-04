@@ -3,7 +3,7 @@ var should = require('should');
 var Characteristic = require('../lib/characteristic');
 
 describe('Characteristic', function() {
-  var mockUuid = 'mock-uuid';
+  var mockUuid = 'mockuuid';
   var mockProperties = ['property1', 'property2', 'property3'];
   var mockSecure = ['secure1', 'secure2', 'secure3'];
   var mockValue = new Buffer('mock value');
@@ -114,7 +114,7 @@ describe('Characteristic', function() {
       uuid: mockUuid
     });
 
-    characteristic.toString().should.equal('{"uuid":"mock-uuid","properties":[],"secure":[],"value":null,"descriptors":[]}');
+    characteristic.toString().should.equal('{"uuid":"mockuuid","properties":[],"secure":[],"value":null,"descriptors":[]}');
   });
 
   it('should handle read request', function(done) {

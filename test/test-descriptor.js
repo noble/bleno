@@ -3,7 +3,7 @@ var should = require('should');
 var Descriptor = require('../lib/descriptor');
 
 describe('Descriptor', function() {
-  var mockUuid = 'mock-uuid';
+  var mockUuid = 'mockuuid';
   var mockValue = new Buffer('mock value');
 
   it('should create with uuid option', function() {
@@ -32,7 +32,7 @@ describe('Descriptor', function() {
         value: mockValue
       });
 
-      descriptor.toString().should.equal('{"uuid":"mock-uuid","value":"6d6f636b2076616c7565"}');
+      descriptor.toString().should.equal('{"uuid":"mockuuid","value":"6d6f636b2076616c7565"}');
     });
 
     it('should leave non-buffer value alone', function() {
@@ -41,7 +41,7 @@ describe('Descriptor', function() {
         value: 'mock value'
       });
 
-      descriptor.toString().should.equal('{"uuid":"mock-uuid","value":"mock value"}');
+      descriptor.toString().should.equal('{"uuid":"mockuuid","value":"mock value"}');
     });
   });
 });
