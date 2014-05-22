@@ -121,9 +121,9 @@ bleno.on('stateChange', function(state) {
 });
 
 // Linux only events /////////////////
-bleno.on('accept', function() {
-  console.log('on -> accept');
-
+bleno.on('accept', function(clientAddress) {
+  console.log('on -> accept, client: ' + clientAddress);
+  
   bleno.updateRssi();
 });
 
