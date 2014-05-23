@@ -28,13 +28,13 @@ Usage
 -----
 
     var bleno = require('bleno');
-    
+
 See [examples folder](https://github.com/sandeepmistry/bleno/blob/master/examples) for code examples.
 
 __Actions__
 
 Start advertising:
-    
+
     var name = 'name';
     var serviceUuids = ['fffffffffffffffffffffffffffffff0']
 
@@ -51,7 +51,7 @@ Start advertising:
 
 
 Start advertising iBeacon:
-    
+
     var uuid = 'e2c56db5dffb48d2b060d0f5a71096e0';
     var major = 0; // 0x0000 - 0xffff
     var minor = 0; // 0x0000 - 0xffff
@@ -210,11 +210,11 @@ Services set:
 
 Accept:
 
-    bleno.on('accept', callback); // Linux only
+    bleno.on('accept', callback(clientAddress)); // Linux only
 
 Disconnect:
 
-    bleno.on('disconnct', callback); // Linux only
+    bleno.on('disconnect', callback(clientAddress)); // Linux only
 
 RSSI Update:
 
@@ -302,7 +302,7 @@ Useful tools/links
    * [hcitool](http://linux.die.net/man/1/hcitool) and ```gatttool``` by [BlueZ](http://www.bluez.org) for Linux
 
 
-   
+
 License
 ========
 
