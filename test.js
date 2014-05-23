@@ -100,7 +100,7 @@ function SampleService() {
   SampleService.super_.call(this, {
     uuid: 'fffffffffffffffffffffffffffffff0',
     characteristics: [
-      new StaticReadOnlyCharacteristic(),   
+      new StaticReadOnlyCharacteristic(),
       new DynamicReadOnlyCharacteristic(),
       new WriteOnlyCharacteristic(),
       new NotifyOnlyCharacteristic()
@@ -123,12 +123,12 @@ bleno.on('stateChange', function(state) {
 // Linux only events /////////////////
 bleno.on('accept', function(clientAddress) {
   console.log('on -> accept, client: ' + clientAddress);
-  
+
   bleno.updateRssi();
 });
 
-bleno.on('disconnect', function() {
-  console.log('on -> disconnect');
+bleno.on('disconnect', function(clientAddress) {
+  console.log('on -> disconnect, client: ' + clientAddress);
 });
 
 bleno.on('rssiUpdate', function(rssi) {
