@@ -74,6 +74,39 @@ int hci_le_set_scan_response_data(int dd, uint8_t* data, uint8_t length, int to)
   return 0;
 }
 
+// Set advertising interval to 100 ms
+// Note: 0x00A0 * 0.625ms = 100ms
+int hci_le_set_advertising_parameters(int dd, int to)
+{
+  struct hci_request rq;
+  le_set_advertising_parameters_cp adv_params_cp;
+  uint8_t status;
+
+  memset(&adv_params_cp, 0, sizeof(adv_params_cp));
+  adv_params_cp.min_interval = htobs(0x00A0);
+  adv_params_cp.max_interval = htobs(0x00A0);
+  adv_params_cp.advtype = 3;
+  adv_params_cp.chan_map = 7;
+
+  memset(&rq, 0, sizeof(rq));
+  rq.ogf = OGF_LE_CTL;
+  rq.ocf = OCF_LE_SET_ADVERTISING_PARAMETERS;
+  rq.cparam = &adv_params_cp;
+  rq.clen = LE_SET_ADVERTISING_PARAMETERS_CP_SIZE;
+  rq.rparam = &status;
+  rq.rlen = 1;
+
+  if (hci_send_req(dd, &rq, to) < 0)
+    return -1;
+
+  if (status) {
+    errno = EIO;
+    return -1;
+  }
+
+  return 0;
+}
+
 int main(int argc, const char* argv[])
 {
   char *hciDeviceIdOverride = NULL;
@@ -191,6 +224,9 @@ int main(int argc, const char* argv[])
         // set advertisement data
         hci_le_set_advertising_data(hciSocket, (uint8_t*)&advertisementDataBuf, advertisementDataLen, 1000);
 
+        // set advertisement parameters, mostly to set the advertising interval to 100ms
+        hci_le_set_advertising_parameters(hciSocket, 1000);
+
         // start advertising
         hci_le_set_advertise_enable(hciSocket, 1, 1000);
 
@@ -236,6 +272,9 @@ int main(int argc, const char* argv[])
 
         // set advertisement data
         hci_le_set_advertising_data(hciSocket, (uint8_t*)&advertisementDataBuf, advertisementDataLen, 1000);
+
+        // set advertisement parameters, mostly to set the advertising interval to 100ms
+        hci_le_set_advertising_parameters(hciSocket, 1000);
 
         // start advertising
         hci_le_set_advertise_enable(hciSocket, 1, 1000);
