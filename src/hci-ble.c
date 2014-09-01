@@ -85,7 +85,6 @@ int hci_le_set_advertising_parameters(int dd, int to)
   memset(&adv_params_cp, 0, sizeof(adv_params_cp));
   adv_params_cp.min_interval = htobs(0x00A0);
   adv_params_cp.max_interval = htobs(0x00A0);
-  adv_params_cp.advtype = 3;
   adv_params_cp.chan_map = 7;
 
   memset(&rq, 0, sizeof(rq));
@@ -117,7 +116,7 @@ int main(int argc, const char* argv[])
   int previousAdapterState = -1;
   int currentAdapterState;
   const char* adapterState = NULL;
-  
+
   fd_set rfds;
   struct timeval tv;
   int selectRetval;
@@ -131,8 +130,8 @@ int main(int argc, const char* argv[])
   int i;
 
   memset(&hciDevInfo, 0x00, sizeof(hciDevInfo));
-  
-  // remove buffering 
+
+  // remove buffering
   setbuf(stdin, NULL);
   setbuf(stdout, NULL);
   setbuf(stderr, NULL);
@@ -187,7 +186,7 @@ int main(int argc, const char* argv[])
         hci_le_set_advertise_enable(hciSocket, 0, 1000);
 
         hci_le_set_advertise_enable(hciSocket, 1, 1000);
-        
+
         if (hci_le_set_advertise_enable(hciSocket, 0, 1000) == -1) {
           if (EPERM == errno) {
             adapterState = "unauthorized";
@@ -220,7 +219,7 @@ int main(int argc, const char* argv[])
 
         // set scan data
         hci_le_set_scan_response_data(hciSocket, (uint8_t*)&scanDataBuf, scanDataLen, 1000);
-        
+
         // set advertisement data
         hci_le_set_advertising_data(hciSocket, (uint8_t*)&advertisementDataBuf, advertisementDataLen, 1000);
 
@@ -232,17 +231,17 @@ int main(int argc, const char* argv[])
 
         // set scan data
         hci_le_set_scan_response_data(hciSocket, (uint8_t*)&scanDataBuf, scanDataLen, 1000);
-        
+
         // set advertisement data
         hci_le_set_advertising_data(hciSocket, (uint8_t*)&advertisementDataBuf, advertisementDataLen, 1000);
-      } 
+      }
     } else if (selectRetval) {
       if (FD_ISSET(0, &rfds)) {
         len = read(0, stdinBuf, sizeof(stdinBuf));
 
         if (len <= 0) {
           break;
-        } 
+        }
 
         i = 0;
         advertisementDataLen = 0;
