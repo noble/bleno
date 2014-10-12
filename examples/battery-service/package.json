@@ -1,0 +1,20 @@
+{
+  "name": "battery-service",
+  "version": "0.1.0",
+  "description": "BLE (Bluetooth Low Energy) Battery Service",
+  "main": "index.js",
+  "engines": {
+    "node": ">=0.10"
+  },
+  "os": [
+    "darwin",
+    "linux"
+  ],
+  "author": {
+    "name": "Don Coleman",
+    "url" : "https://github.com/don"
+  },
+  "dependencies": {
+    "bleno": ">0.1.4"
+  }
+}
