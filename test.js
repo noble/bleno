@@ -124,7 +124,9 @@ bleno.on('stateChange', function(state) {
 bleno.on('accept', function(clientAddress) {
   console.log('on -> accept, client: ' + clientAddress);
 
-  bleno.updateRssi();
+  if (bleno.updateRssi) {
+    bleno.updateRssi();
+  }
 });
 
 bleno.on('disconnect', function(clientAddress) {
