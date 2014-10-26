@@ -1,6 +1,8 @@
 bleno
 =====
 
+[![Analytics](https://ga-beacon.appspot.com/UA-56089547-1/sandeepmistry/bleno?pixel)](https://github.com/igrigorik/ga-beacon)
+
 A node.js module for implementing BLE (Bluetooth low energy) peripherals.
 
 Need a BLE central module? See [noble](https://github.com/sandeepmistry/noble).
