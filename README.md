@@ -19,6 +19,7 @@ __OS X__
 
 __Linux (Ubuntu)__
 
+ * Kernel version 3.6 or above
  * ```sudo apt-get install bluetooth bluez-utils libbluetooth-dev```
  * Run as ```sudo``` or ```root```
 
