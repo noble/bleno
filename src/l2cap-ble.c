@@ -22,7 +22,7 @@ int main(int argc, const char* argv[]) {
   char *hciDeviceIdOverride = NULL;
   int hciDeviceId = 0;
   int hciSocket;
-  
+
   int serverL2capSock;
   struct sockaddr_l2 sockAddr;
   socklen_t sockAddrLen;
@@ -44,8 +44,8 @@ int main(int argc, const char* argv[]) {
   struct bt_security btSecurity;
   socklen_t btSecurityLen;
   uint8_t securityLevel = 0;
-  
-  // remove buffering 
+
+  // remove buffering
   setbuf(stdin, NULL);
   setbuf(stdout, NULL);
   setbuf(stderr, NULL);
@@ -60,7 +60,7 @@ int main(int argc, const char* argv[]) {
 
   // create socket
   serverL2capSock = socket(AF_BLUETOOTH, SOCK_SEQPACKET, BTPROTO_L2CAP);
-  
+
   hciDeviceIdOverride = getenv("BLENO_HCI_DEVICE_ID");
   if (hciDeviceIdOverride != NULL) {
     hciDeviceId = atoi(hciDeviceIdOverride);
@@ -72,7 +72,7 @@ int main(int argc, const char* argv[]) {
   if (hciDeviceId < 0) {
     hciDeviceId = 0; // use device 0, if device id is invalid
   }
-  
+
   bdaddr_t daddr;
   hciSocket = hci_open_dev(hciDeviceId);
   if (hciSocket == -1) {
@@ -150,7 +150,7 @@ int main(int argc, const char* argv[]) {
                 break;
               }
             }
-            
+
             if (rssi == 0) {
               rssi = 127;
             }
