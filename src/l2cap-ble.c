@@ -56,7 +56,7 @@ int main(int argc, const char* argv[]) {
   signal(SIGHUP, signalHandler);
   signal(SIGUSR1, signalHandler);
 
-  prctl(PR_SET_PDEATHSIG, SIGINT);
+  prctl(PR_SET_PDEATHSIG, SIGKILL);
 
   // create socket
   serverL2capSock = socket(AF_BLUETOOTH, SOCK_SEQPACKET, BTPROTO_L2CAP);

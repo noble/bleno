@@ -142,7 +142,7 @@ int main(int argc, const char* argv[])
   signal(SIGHUP, signalHandler);
   signal(SIGUSR1, signalHandler);
 
-  prctl(PR_SET_PDEATHSIG, SIGINT);
+  prctl(PR_SET_PDEATHSIG, SIGKILL);
 
   hciDeviceIdOverride = getenv("BLENO_HCI_DEVICE_ID");
   if (hciDeviceIdOverride != NULL) {
