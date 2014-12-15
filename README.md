@@ -105,7 +105,26 @@ __Primary Service__
         uuid: 'fffffffffffffffffffffffffffffff0', // or 'fff0' for 16-bit
         characteristics: [
             // see Characteristic for data type
-        ]
+        ],
+        included: ['secondaryID'], //optional ID of included services - secondary or primary
+        relativeHandle: 'ff', //optional add 'ff' to handle before adding this service
+        absoluteHandle: '0f00', //optional start service on '0f00' handle
+        ID: 'primaryID' //optional ID of this service to be reference in 'included' array
+    });
+
+__Secondary Service__
+
+    var SecondaryService = bleno.SecondaryService;
+
+    var secondaryService = new SecondaryService({
+        uuid: 'fffffffffffffffffffffffffffffff0', // or 'fff0' for 16-bit
+        characteristics: [
+            // see Characteristic for data type
+        ],
+        included: ['moreSecondaryID'], //optional ID of included services - secondary or primary
+        relativeHandle: 'ff', //optional add 'ff' to handle before adding this service
+        absoluteHandle: '0f00', //optional start service on '0f00' handle
+        ID: 'secondaryID' //optional ID of this service to be reference in 'included' array
     });
 
 __Characteristic__
@@ -120,6 +139,8 @@ __Characteristic__
         descriptors: [
             // see Descriptor for data type
         ],
+        relativeHandle: 'ff', //optional add 'ff' to handle before adding this characteristics
+        relativeValueHandle: 'ff', //optional add 'ff' to handle before adding value attribute of characteristics
         onReadRequest: null, // optional read request handler, function(offset, callback) { ... }
         onWriteRequest: null, // optional write request handler, function(data, offset, withoutResponse, callback) { ...}
         onSubscribe: null, // optional notify subscribe handler, function(maxValueSize, updateValueCallback) { ...}
@@ -190,7 +211,8 @@ __Descriptor__
 
     var descriptor = new Descriptor({
         uuid: '2901',
-        value: 'value' // static value, must be of type Buffer or string if set
+        value: 'value', // static value, must be of type Buffer or string if set
+        relativeHandle: 'ff' //optional add 'ff' to handle before adding this descriptor
     });
 
 __Events__
