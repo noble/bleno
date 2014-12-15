@@ -18,7 +18,7 @@ function BatterySecondaryServiceA() {
 
 function BatterySecondaryServiceB() {
 	BatterySecondaryServiceB.super_.call(this, {
-		uuid: '180F',
+		uuid: '180E',
 		ID: 'secondaryIDB',
 		characteristics: [
 			new BatteryLevelCharacteristic()
