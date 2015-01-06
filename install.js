@@ -12,7 +12,7 @@ var npmInstall = function(package, callback) {
 if (platform === 'darwin') {
   console.log('bleno install: installing xpc-connection ...');
 
-  var npmInstall = spawn('npm', ['install', 'xpc-connection@~0.0.3'], {
+  var npmInstall = spawn('npm', ['install', 'xpc-connection@~0.1.0'], {
     stdio: 'inherit'
   });
 
