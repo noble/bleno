@@ -10,7 +10,7 @@
 #include <bluetooth/hci.h>
 #include <bluetooth/hci_lib.h>
 
-int lastSignal = 0;
+static int lastSignal = 0;
 
 static void signalHandler(int signal) {
   lastSignal = signal;
@@ -23,8 +23,8 @@ int hci_le_set_advertising_data(int dd, uint8_t* data, uint8_t length, int to)
   uint8_t status;
 
   memset(&data_cp, 0, sizeof(data_cp));
-  data_cp.length = length;
-  memcpy(&data_cp.data, data, sizeof(data_cp.data));
+  data_cp.length = length <= sizeof(data_cp.data) ? length : sizeof(data_cp.data);
+  memcpy(&data_cp.data, data, data_cp.length);
 
   memset(&rq, 0, sizeof(rq));
   rq.ogf = OGF_LE_CTL;
@@ -52,8 +52,8 @@ int hci_le_set_scan_response_data(int dd, uint8_t* data, uint8_t length, int to)
   uint8_t status;
 
   memset(&data_cp, 0, sizeof(data_cp));
-  data_cp.length = length;
-  memcpy(&data_cp.data, data, sizeof(data_cp.data));
+  data_cp.length = length <= sizeof(data_cp.data) ? length : sizeof(data_cp.data);
+  memcpy(&data_cp.data, data, data_cp.length);
 
   memset(&rq, 0, sizeof(rq));
   rq.ogf = OGF_LE_CTL;

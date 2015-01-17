@@ -11,7 +11,7 @@
 
 #define ATT_CID 4
 
-int lastSignal = 0;
+static int lastSignal = 0;
 
 static void signalHandler(int signal) {
   lastSignal = signal;
