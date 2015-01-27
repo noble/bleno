@@ -22,10 +22,10 @@ var testSecondaryServiceA = new BlenoSecondaryService({
 });
 
 var testSecondaryServiceB = new BlenoSecondaryService({
-  uuid: 'bbb0',
+  uuid: 'bb00',
   characteristics: [
     new BlenoCharacteristic({
-      uuid: 'bbb1',
+      uuid: 'bb01',
       properties: ['read'],
       value: new Buffer('b')
     })
@@ -94,9 +94,9 @@ bleno.on('advertisingStart', function(error) {
   if (!error) {
     bleno.setServices([
       testSecondaryServiceA,
-      // testSecondaryServiceB,
       testPrimaryServiceA,
-      // testPrimaryServiceB
+      testSecondaryServiceB,
+      testPrimaryServiceB
     ]);
   }
 });
