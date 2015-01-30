@@ -29,7 +29,13 @@ if (platform === 'darwin') {
   });
 
   nodeGypConfigureBuild.on('close', function(code) {
-    console.log('bleno install: done');
+    console.log('bleno install: ' + ((code === 0) ? 'done' : 'error'));
+
+    if (code !== 0) {
+      console.error('Have you installed "libbluetooth-dev"? Try again, after running:');
+      console.error();
+      console.error('\t sudo apt-get install bluetooth bluez-utils libbluetooth-dev');
+    }
 
     process.exit(code);
   });
