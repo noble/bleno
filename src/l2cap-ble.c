@@ -7,11 +7,26 @@
 #include <bluetooth/bluetooth.h>
 #include <bluetooth/hci.h>
 #include <bluetooth/hci_lib.h>
-#include <bluetooth/l2cap.h>
 
 #define ATT_CID 4
 
-static int lastSignal = 0;
+#define BDADDR_LE_PUBLIC       0x01
+
+struct sockaddr_l2 {
+  sa_family_t    l2_family;
+  unsigned short l2_psm;
+  bdaddr_t       l2_bdaddr;
+  unsigned short l2_cid;
+  uint8_t        l2_bdaddr_type;
+};
+
+#define L2CAP_CONNINFO  0x02
+struct l2cap_conninfo {
+  uint16_t       hci_handle;
+  uint8_t        dev_class[3];
+};
+
+int lastSignal = 0;
 
 static void signalHandler(int signal) {
   lastSignal = signal;
@@ -88,6 +103,7 @@ int main(int argc, const char* argv[]) {
   sockAddr.l2_family = AF_BLUETOOTH;
   sockAddr.l2_bdaddr = daddr;
   sockAddr.l2_cid = htobs(ATT_CID);
+  sockAddr.l2_bdaddr_type = BDADDR_LE_PUBLIC;
 
   result = bind(serverL2capSock, (struct sockaddr*)&sockAddr, sizeof(sockAddr));
 
