@@ -115,7 +115,7 @@ bleno.setServices(services[, callback(error)]);
 bleno.disconnect(); // Linux only
 ```
 
-#### Update RSSI:
+#### Update RSSI
 
 ```javascript
 bleno.updateRssi([callback(error, rssi)]); // Linux only
@@ -173,10 +173,12 @@ Parameters to handler are
 
 ```callback``` must be called with result and data (of type ```Buffer```) - can be async.
 
-    var result = Characteristic.RESULT_SUCCESS;
-    var data = new Buffer( ... );
+```javascript
+var result = Characteristic.RESULT_SUCCESS;
+var data = new Buffer( ... );
 
-    callback(result, data);
+callback(result, data);
+```
 
 #### Write requests
 
@@ -190,9 +192,11 @@ Parameters to handler are
 
 ```callback``` must be called with result code - can be async.
 
-    var result = Characteristic.RESULT_SUCCESS;
+```javascript
+var result = Characteristic.RESULT_SUCCESS;
 
-    callback(result);
+callback(result);
+```
 
 #### Notify subscribe
 
