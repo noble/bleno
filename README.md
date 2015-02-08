@@ -1,5 +1,8 @@
 # bleno
 
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/sandeepmistry/bleno?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+
 A node.js module for implementing BLE (Bluetooth low energy) peripherals.
 
 Need a BLE central module? See [noble](https://github.com/sandeepmistry/noble).
