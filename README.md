@@ -264,7 +264,22 @@ bleno.on('rssiUpdate', callback(rssi)); // Linux only
 
 ### Running on Linux
 
-Must be run with ```sudo``` or as root user.
+#### Running without root/sudo
+
+Run the following command in the directory you ran ```npm install``` from:
+
+```sh
+find -path '*bleno*Release/hci-ble' -exec sudo setcap cap_net_raw+eip '{}' \;
+```
+
+This grants bleno's ```hci-ble``` binary ```cap_net_raw``` privileges, so it can start/stop BLE advertising.
+
+__Note:__ The above command requires ```setcap``` to be installed, it can be installed using the following:
+
+ * apt: ```sudo apt-get install libcap2-bin```
+ * yum: ```su -c \'yum install libcap2-bin\'```
+
+#### Multiple Adapters
 
 ```hci0``` is used by default to override set the ```BLENO_HCI_DEVICE_ID``` environment variable to the interface number.
 
