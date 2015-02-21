@@ -32,6 +32,27 @@ static void signalHandler(int signal) {
   lastSignal = signal;
 }
 
+int readLine(int fd, char* buffer, int bufferLen) {
+  int lineLength = 0;
+
+  while(lineLength < bufferLen) {
+    int readResult = read(fd, &buffer[lineLength], sizeof(buffer[lineLength]));
+
+    if (readResult <= 0) {
+      lineLength = readResult;
+      break;
+    }
+
+    if (buffer[lineLength] == '\n') {
+      break;
+    }
+
+    lineLength++;
+  }
+
+  return lineLength;
+}
+
 int main(int argc, const char* argv[]) {
 
   char *hciDeviceIdOverride = NULL;
@@ -175,7 +196,7 @@ int main(int argc, const char* argv[]) {
           }
         } else if (result) {
           if (FD_ISSET(0, &rfds)) {
-            len = read(0, stdinBuf, sizeof(stdinBuf));
+            len = readLine(0, stdinBuf, sizeof(stdinBuf));
 
             if (len <= 0) {
               break;
@@ -189,7 +210,7 @@ int main(int argc, const char* argv[]) {
               i += 2;
             }
 
-            len = write(clientL2capSock, l2capSockBuf, (len - 1) / 2);
+            len = write(clientL2capSock, l2capSockBuf, len / 2);
           }
 
           if (FD_ISSET(clientL2capSock, &rfds)) {
