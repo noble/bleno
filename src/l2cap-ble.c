@@ -36,17 +36,19 @@ int readLine(int fd, char* buffer, int bufferLen) {
   int lineLength = 0;
 
   while(lineLength < bufferLen) {
-    int readResult = read(fd, &buffer[lineLength], sizeof(buffer[lineLength]));
+    char c;
+    int readResult = read(fd, &c, sizeof(c));
 
     if (readResult <= 0) {
       lineLength = readResult;
       break;
     }
 
-    if (buffer[lineLength] == '\n') {
+    if (c == '\n') {
       break;
     }
 
+    buffer[lineLength] = c;
     lineLength++;
   }
 
@@ -202,12 +204,10 @@ int main(int argc, const char* argv[]) {
               break;
             }
 
-            i = 0;
-            while(stdinBuf[i] != '\n') {
+            for (i = 0; i < len; i += 2) {
               unsigned int data = 0;
               sscanf(&stdinBuf[i], "%02x", &data);
               l2capSockBuf[i / 2] = data;
-              i += 2;
             }
 
             len = write(clientL2capSock, l2capSockBuf, len / 2);
