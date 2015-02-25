@@ -1,3 +1,5 @@
+#include <unistd.h>
+
 #include "utility.h"
 
 int readLine(int fd, char* buffer, int bufferLen) {
