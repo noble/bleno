@@ -10,6 +10,8 @@
 #include <bluetooth/hci.h>
 #include <bluetooth/hci_lib.h>
 
+#include "utility.h"
+
 static int lastSignal = 0;
 
 static void signalHandler(int signal) {
@@ -237,7 +239,7 @@ int main(int argc, const char* argv[])
       }
     } else if (selectRetval) {
       if (FD_ISSET(0, &rfds)) {
-        len = read(0, stdinBuf, sizeof(stdinBuf));
+        len = readLine(0, stdinBuf, sizeof(stdinBuf));
 
         if (len <= 0) {
           break;

@@ -8,6 +8,8 @@
 #include <bluetooth/hci.h>
 #include <bluetooth/hci_lib.h>
 
+#include "utility.h"
+
 #define ATT_CID 4
 
 #define BDADDR_LE_PUBLIC       0x01
@@ -30,29 +32,6 @@ int lastSignal = 0;
 
 static void signalHandler(int signal) {
   lastSignal = signal;
-}
-
-int readLine(int fd, char* buffer, int bufferLen) {
-  int lineLength = 0;
-
-  while(lineLength < bufferLen) {
-    char c;
-    int readResult = read(fd, &c, sizeof(c));
-
-    if (readResult <= 0) {
-      lineLength = readResult;
-      break;
-    }
-
-    if (c == '\n') {
-      break;
-    }
-
-    buffer[lineLength] = c;
-    lineLength++;
-  }
-
-  return lineLength;
 }
 
 int main(int argc, const char* argv[]) {

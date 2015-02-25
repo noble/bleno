@@ -6,7 +6,8 @@
       'conditions': [
         ['OS=="linux"', {
           'sources': [
-            'src/hci-ble.c'
+            'src/hci-ble.c',
+            'src/utility.c'
           ],
           'link_settings': {
             'libraries': [
@@ -22,7 +23,8 @@
       'conditions': [
         ['OS=="linux"', {
           'sources': [
-            'src/l2cap-ble.c'
+            'src/l2cap-ble.c',
+            'src/utility.c'
           ],
           'link_settings': {
             'libraries': [
