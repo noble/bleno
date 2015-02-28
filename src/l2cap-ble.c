@@ -176,9 +176,6 @@ int main(int argc, const char* argv[]) {
 
             printf("rssi = %d\n", rssi);
           } else if (SIGUSR2 == lastSignal) {
-            struct bt_security btSecurity;
-            socklen_t btSecurityLen;
-
             memset(&btSecurity, 0, sizeof(btSecurity));
             btSecurity.level = BT_SECURITY_MEDIUM;
 
@@ -207,12 +204,13 @@ int main(int argc, const char* argv[]) {
             len = write(clientL2capSock, l2capSockBuf, len / 2);
 
             if (len == -1 && errno == ENOTCONN) {
-              // hci_disconnect(hciSocket, hciHandle, HCI_OE_USER_ENDED_CONNECTION, 1000);
-              close(clientL2capSock);
-              break;
-            }
+              memset(&btSecurity, 0, sizeof(btSecurity));
+              btSecurity.level = BT_SECURITY_MEDIUM;
 
-            // printf("write = %s\n", (len == -1) ? strerror(errno) : "success");
+              setsockopt(clientL2capSock, SOL_BLUETOOTH, BT_SECURITY, &btSecurity, sizeof(btSecurity));
+
+              printf("write = %s\n", (len == -1) ? strerror(errno) : "success");
+            }
           }
 
           if (FD_ISSET(clientL2capSock, &rfds)) {
