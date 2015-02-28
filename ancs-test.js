@@ -28,38 +28,45 @@ bleno.on('advertisingStart', function(error) {
 noble.on('discover', function(peripheral) {
   var ancs = new ANCS(peripheral);
 
-  console.log('connected');
-  ancs.discoverServicesAndCharacteristics(function() {
-    console.log('services and characteristics discovered');
-  });
+  ancs.connect(function() {
+    console.log('connected');
 
-  ancs.on('notification', function(notification) {
-    console.log('notification: ' + notification);
+    ancs.on('disconnect', function() {
+      console.log('disconnected');
+    });
 
-    if (notification.event !== 'removed') {
-      // notification.readAppIdentifier(function(appIdentifier) {
-      //   console.log('\tappIdentifier = ' + appIdentifier);
-      // });
+    ancs.discoverServicesAndCharacteristics(function() {
+      console.log('services and characteristics discovered');
+    });
 
-      // notification.readTitle(function(title) {
-      //   console.log('\ttitle = ' + title);
-      // });
+    ancs.on('notification', function(notification) {
+      console.log('notification: ' + notification);
 
-      // notification.readSubtitle(function(subtitle) {
-      //   console.log('\tsubtitle = ' + subtitle);
-      // });
+      if (notification.event !== 'removed') {
+        // notification.readAppIdentifier(function(appIdentifier) {
+        //   console.log('\tappIdentifier = ' + appIdentifier);
+        // });
 
-      // notification.readMessage(function(message) {
-      //   console.log('\tmessage = ' + message);
-      // });
+        // notification.readTitle(function(title) {
+        //   console.log('\ttitle = ' + title);
+        // });
 
-      // notification.readDate(function(date) {
-      //   console.log('\tdate = ' + date);
-      // });
+        // notification.readSubtitle(function(subtitle) {
+        //   console.log('\tsubtitle = ' + subtitle);
+        // });
 
-      notification.readAttributes(function(attributes) {
-        console.log(attributes);
-      });
-    }
+        // notification.readMessage(function(message) {
+        //   console.log('\tmessage = ' + message);
+        // });
+
+        // notification.readDate(function(date) {
+        //   console.log('\tdate = ' + date);
+        // });
+
+        notification.readAttributes(function(attributes) {
+          console.log(attributes);
+        });
+      }
+    });
   });
 });
