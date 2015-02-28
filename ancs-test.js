@@ -11,7 +11,23 @@ bleno.on('stateChange', function(state) {
   console.log('on -> stateChange: ' + state);
 
   if (state === 'poweredOn') {
-    bleno.startAdvertising('ancs-test', ['7905f431b5ce4e99a40f4b1e122d00d0']);
+    if (bleno.startAdvertisingWithEIRData) {
+      bleno.startAdvertising('ancs-test', ['7905f431b5ce4e99a40f4b1e122d00d0']);
+    } else {
+      var ad = new Buffer([
+        // flags
+        0x02, 0x01, 0x02,
+
+        // ANCS solicitation
+        0x11, 0x15, 0xd0, 0x00, 0x2D, 0x12, 0x1E, 0x4B, 0x0F,
+        0xA4, 0x99, 0x4E, 0xCE, 0xB5, 0x31, 0xF4, 0x05, 0x79
+      ]);
+
+      var scan = new Buffer([0x05, 0x08, 0x74, 0x65, 0x73, 0x74]); // name
+
+      bleno.startAdvertisingWithEIRData(ad, scan);
+    }
+
   } else {
     bleno.stopAdvertising();
   }
@@ -29,18 +45,20 @@ noble.on('discover', function(peripheral) {
   var ancs = new ANCS(peripheral);
 
   ancs.connect(function() {
-    console.log('connected');
+    console.log('ancs - connected');
 
     ancs.on('disconnect', function() {
-      console.log('disconnected');
+      console.log('ancs - disconnected');
+      ancs.removeAllListeners();
+      ancs = null;
     });
 
     ancs.discoverServicesAndCharacteristics(function() {
-      console.log('services and characteristics discovered');
+      console.log('ancs - services and characteristics discovered');
     });
 
     ancs.on('notification', function(notification) {
-      console.log('notification: ' + notification);
+      console.log('ancs - notification: ' + notification);
 
       if (notification.event !== 'removed') {
         // notification.readAppIdentifier(function(appIdentifier) {
