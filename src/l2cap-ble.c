@@ -72,6 +72,7 @@ int main(int argc, const char* argv[]) {
   signal(SIGKILL, signalHandler);
   signal(SIGHUP, signalHandler);
   signal(SIGUSR1, signalHandler);
+  signal(SIGUSR2, signalHandler);
 
   prctl(PR_SET_PDEATHSIG, SIGKILL);
 
@@ -127,7 +128,7 @@ int main(int argc, const char* argv[]) {
     if (-1 == result) {
       if (SIGINT == lastSignal || SIGKILL == lastSignal) {
         break;
-      } else if (SIGHUP == lastSignal || SIGUSR1 == lastSignal) {
+      } else if (SIGHUP == lastSignal || SIGUSR1 == lastSignal || SIGUSR2 == lastSignal) {
         result = 0;
       }
     } else if (result && FD_ISSET(serverL2capSock, &afds)) {
@@ -174,6 +175,20 @@ int main(int argc, const char* argv[]) {
             }
 
             printf("rssi = %d\n", rssi);
+          } else if (SIGUSR2 == lastSignal) {
+            struct bt_security btSecurity;
+            socklen_t btSecurityLen;
+
+            memset(&btSecurity, 0, sizeof(btSecurity));
+            btSecurity.level = BT_SECURITY_MEDIUM;
+
+            setsockopt(clientL2capSock, SOL_BLUETOOTH, BT_SECURITY, &btSecurity, sizeof(btSecurity));
+
+            getsockopt(clientL2capSock, SOL_BLUETOOTH, BT_SECURITY, &btSecurity, &btSecurityLen);
+
+            printf("security = %s\n", (BT_SECURITY_MEDIUM == btSecurity.level) ? "medium" : "low");
+
+            securityLevel = btSecurity.level;
           }
         } else if (result) {
           if (FD_ISSET(0, &rfds)) {
@@ -190,6 +205,14 @@ int main(int argc, const char* argv[]) {
             }
 
             len = write(clientL2capSock, l2capSockBuf, len / 2);
+
+            if (len == -1 && errno == ENOTCONN) {
+              // hci_disconnect(hciSocket, hciHandle, HCI_OE_USER_ENDED_CONNECTION, 1000);
+              close(clientL2capSock);
+              break;
+            }
+
+            // printf("write = %s\n", (len == -1) ? strerror(errno) : "success");
           }
 
           if (FD_ISSET(clientL2capSock, &rfds)) {
@@ -239,6 +262,7 @@ int main(int argc, const char* argv[]) {
       }
 
       printf("disconnect %s\n", batostr(&clientBdAddr));
+      printf("disconnect\n");
       close(clientL2capSock);
     }
   }
