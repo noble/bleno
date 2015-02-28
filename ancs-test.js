@@ -12,8 +12,6 @@ bleno.on('stateChange', function(state) {
 
   if (state === 'poweredOn') {
     if (bleno.startAdvertisingWithEIRData) {
-      bleno.startAdvertising('ancs-test', ['7905f431b5ce4e99a40f4b1e122d00d0']);
-    } else {
       var ad = new Buffer([
         // flags
         0x02, 0x01, 0x02,
@@ -26,6 +24,8 @@ bleno.on('stateChange', function(state) {
       var scan = new Buffer([0x05, 0x08, 0x74, 0x65, 0x73, 0x74]); // name
 
       bleno.startAdvertisingWithEIRData(ad, scan);
+    } else {
+      bleno.startAdvertising('ancs-test', ['7905f431b5ce4e99a40f4b1e122d00d0']);
     }
 
   } else {
