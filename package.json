@@ -30,12 +30,14 @@
   "license": "MIT",
   "readmeFilename": "README.md",
   "devDependencies": {
+    "ancs": "^0.1.0",
     "jshint": "~2.3.0",
-    "should": "~2.0.2",
     "mocha": "~1.14.0",
-    "node-blink1": "~0.1.1"
+    "node-blink1": "~0.1.1",
+    "should": "~2.0.2"
   },
   "dependencies": {
-    "debug": "~0.7.2"
+    "debug": "~0.7.2",
+    "noble": "git://github.com/sandeepmistry/noble"
   }
 }
