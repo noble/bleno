@@ -1,6 +1,6 @@
 {
   "name": "bleno",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "A node.js module for implementing BLE (Bluetooth low energy) peripherals",
   "main": "index.js",
   "engines": {
