@@ -80,7 +80,6 @@ bleno.startAdvertisingIBeacon(uuid, major, minor, measuredPower[, callback(error
  __Notes:__:
   * OS X:
     * in iBeacon mode your peripheral is non-connectable!
-    * not supported by OS X 10.10 (Yosemite)
 
 #### Start advertising with EIR data (__Linux only__)
 
