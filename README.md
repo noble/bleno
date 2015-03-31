@@ -253,7 +253,9 @@ bleno.on('advertisingStop', callback);
 #### Services set
 
 ```javascript
-bleno.on('servicesSet', callback);
+bleno.on('servicesSet', callback(error));
+
+bleno.on('servicesSetError', callback(error));
 ```
 
 #### Accept

@@ -152,6 +152,6 @@ bleno.on('advertisingStop', function() {
   console.log('on -> advertisingStop');
 });
 
-bleno.on('servicesSet', function() {
-  console.log('on -> servicesSet');
+bleno.on('servicesSet', function(error) {
+  console.log('on -> servicesSet: ' + (error ? 'error ' + error : 'success'));
 });
