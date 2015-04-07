@@ -303,6 +303,16 @@ Example, specify ```hci1```:
 sudo BLENO_HCI_DEVICE_ID=1 node <your file>.js
 ```
 
+#### Set custom device name
+
+By default bleno uses the hostname (```require('os').hostname()```) as the value for the device name (0x2a00) characterisic, to match the behaviour of OS X.
+
+A custom device name can be specified by setting the ```BLENO_DEVICE_NAME``` enviroment variable:
+
+```sh
+sudo BLENO_DEVICE_NAME="custom device name" node <your file>.js
+```
+
 ## Roadmap (TODO)
 
  * Mac OS X:
