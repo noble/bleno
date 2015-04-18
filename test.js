@@ -111,7 +111,7 @@ function SampleService() {
 util.inherits(SampleService, BlenoPrimaryService);
 
 bleno.on('stateChange', function(state) {
-  console.log('on -> stateChange: ' + state);
+  console.log('on -> stateChange: ' + state + ', address = ' + bleno.address);
 
   if (state === 'poweredOn') {
     bleno.startAdvertising('test', ['fffffffffffffffffffffffffffffff0']);
