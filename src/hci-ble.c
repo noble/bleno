@@ -114,7 +114,7 @@ int main(int argc, const char* argv[])
   int hciDeviceId = 0;
   int hciSocket;
   struct hci_dev_info hciDevInfo;
-  bdaddr_t address;
+  char address[18];
 
   int previousAdapterState = -1;
   int currentAdapterState;
@@ -204,8 +204,8 @@ int main(int argc, const char* argv[])
         }
       }
 
-      baswap(&address, &hciDevInfo.bdaddr);
-      printf("address %s\n", batostr(&address));
+      ba2str(&hciDevInfo.bdaddr, address);
+      printf("address %s\n", address);
       printf("adapterState %s\n", adapterState);
     }
 
