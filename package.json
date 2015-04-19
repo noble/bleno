@@ -38,6 +38,6 @@
     "debug": "~0.7.2"
   },
   "optionalDependencies": {
-    "xpc-connection": "~0.1.0"
+    "xpc-connection": "~0.1.3"
   }
 }
