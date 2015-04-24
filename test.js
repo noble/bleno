@@ -138,8 +138,8 @@ bleno.on('rssiUpdate', function(rssi) {
 });
 //////////////////////////////////////
 
-bleno.on('mtu', function(mtu) {
-  console.log('on -> mtu: ' + mtu);
+bleno.on('mtuChange', function(mtu) {
+  console.log('on -> mtuChange: ' + mtu);
 });
 
 bleno.on('advertisingStart', function(error) {
