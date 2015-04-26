@@ -40,6 +40,35 @@ DynamicReadOnlyCharacteristic.prototype.onReadRequest = function(offset, callbac
   if (offset > data.length) {
     result = this.RESULT_INVALID_OFFSET;
     data = null;
+  } else {
+    data = data.slice(offset);
+  }
+
+  callback(result, data);
+};
+
+var LongDynamicReadOnlyCharacteristic = function() {
+  LongDynamicReadOnlyCharacteristic.super_.call(this, {
+    uuid: 'fffffffffffffffffffffffffffffff3',
+    properties: ['read']
+  });
+};
+
+util.inherits(LongDynamicReadOnlyCharacteristic, BlenoCharacteristic);
+
+LongDynamicReadOnlyCharacteristic.prototype.onReadRequest = function(offset, callback) {
+  var result = this.RESULT_SUCCESS;
+  var data = new Buffer(512);
+
+  for (var i = 0; i < data.length; i++) {
+    data[i] = i % 256;
+  }
+
+  if (offset > data.length) {
+    result = this.RESULT_INVALID_OFFSET;
+    data = null;
+  } else {
+    data = data.slice(offset);
   }
 
   callback(result, data);
@@ -47,7 +76,7 @@ DynamicReadOnlyCharacteristic.prototype.onReadRequest = function(offset, callbac
 
 var WriteOnlyCharacteristic = function() {
   WriteOnlyCharacteristic.super_.call(this, {
-    uuid: 'fffffffffffffffffffffffffffffff3',
+    uuid: 'fffffffffffffffffffffffffffffff4',
     properties: ['write', 'writeWithoutResponse']
   });
 };
@@ -62,7 +91,7 @@ WriteOnlyCharacteristic.prototype.onWriteRequest = function(data, offset, withou
 
 var NotifyOnlyCharacteristic = function() {
   NotifyOnlyCharacteristic.super_.call(this, {
-    uuid: 'fffffffffffffffffffffffffffffff4',
+    uuid: 'fffffffffffffffffffffffffffffff5',
     properties: ['notify']
   });
 };
@@ -102,6 +131,7 @@ function SampleService() {
     characteristics: [
       new StaticReadOnlyCharacteristic(),
       new DynamicReadOnlyCharacteristic(),
+      new LongDynamicReadOnlyCharacteristic(),
       new WriteOnlyCharacteristic(),
       new NotifyOnlyCharacteristic()
     ]
