@@ -117,7 +117,7 @@ bleno.disconnect(); // Linux only
 #### Update RSSI
 
 ```javascript
-bleno.updateRssi([callback(error, rssi)]); // Linux only
+bleno.updateRssi([callback(error, rssi)]); // not available in OS X 10.9
 ```
 
 ### Primary Service
