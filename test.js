@@ -125,6 +125,42 @@ NotifyOnlyCharacteristic.prototype.onNotify = function() {
   console.log('NotifyOnlyCharacteristic on notify');
 };
 
+var IndicateOnlyCharacteristic = function() {
+  IndicateOnlyCharacteristic.super_.call(this, {
+    uuid: 'fffffffffffffffffffffffffffffff6',
+    properties: ['indicate']
+  });
+};
+
+util.inherits(IndicateOnlyCharacteristic, BlenoCharacteristic);
+
+IndicateOnlyCharacteristic.prototype.onSubscribe = function(maxValueSize, updateValueCallback) {
+  console.log('IndicateOnlyCharacteristic subscribe');
+
+  this.counter = 0;
+  this.changeInterval = setInterval(function() {
+    var data = new Buffer(4);
+    data.writeUInt32LE(this.counter, 0);
+
+    console.log('IndicateOnlyCharacteristic update value: ' + this.counter);
+    updateValueCallback(data);
+    this.counter++;
+  }.bind(this), 1000);
+};
+
+IndicateOnlyCharacteristic.prototype.onUnsubscribe = function() {
+  console.log('IndicateOnlyCharacteristic unsubscribe');
+
+  if (this.changeInterval) {
+    clearInterval(this.changeInterval);
+    this.changeInterval = null;
+  }
+};
+
+IndicateOnlyCharacteristic.prototype.onIndicate = function() {
+  console.log('IndicateOnlyCharacteristic on indicate');
+};
+
 function SampleService() {
   SampleService.super_.call(this, {
     uuid: 'fffffffffffffffffffffffffffffff0',
@@ -133,7 +169,8 @@ function SampleService() {
       new DynamicReadOnlyCharacteristic(),
       new LongDynamicReadOnlyCharacteristic(),
       new WriteOnlyCharacteristic(),
-      new NotifyOnlyCharacteristic()
+      new NotifyOnlyCharacteristic(),
+      new IndicateOnlyCharacteristic()
     ]
   });
 }

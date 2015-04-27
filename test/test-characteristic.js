@@ -14,6 +14,7 @@ describe('Characteristic', function() {
   var mockOnSubscribe = function() {};
   var mockOnUnsubscribe = function() {};
   var mockOnNotify = function() {};
+  var mockOnIndicate = function() {};
 
   var mockMaxValueSize = 20;
   var mockUpdateValueCallback = function() {};
@@ -109,6 +110,14 @@ describe('Characteristic', function() {
     characteristic.onNotify.should.equal(mockOnNotify);
   });
 
+    it('should create with onIndicate option', function() {
+    var characteristic = new Characteristic({
+      onIndicate: mockOnIndicate
+    });
+
+    characteristic.onIndicate.should.equal(mockOnIndicate);
+  });
+
   it('should toString', function() {
     var characteristic = new Characteristic({
       uuid: mockUuid
@@ -148,11 +157,5 @@ describe('Characteristic', function() {
 
     should(characteristic.maxValueSize).equal(null);
     should(characteristic.updateValueCallback).equal(null);
-  });
-
-  it('should handle unsubscribe', function() {
-    var characteristic = new Characteristic({});
-    
-    characteristic.emit('notify');
   });
 });
