@@ -262,7 +262,7 @@ bleno.on('servicesSetError', callback(error));
 #### Accept
 
 ```javascript
-bleno.on('accept', callback(clientAddress)); // Linux only
+bleno.on('accept', callback(clientAddress)); // not available on OS X 10.9
 ```
 
 #### Disconnect
