@@ -274,7 +274,7 @@ bleno.on('disconnect', callback(clientAddress)); // Linux only
 #### RSSI Update
 
 ```javascript
-bleno.on('rssiUpdate', callback(rssi)); // Linux only
+bleno.on('rssiUpdate', callback(rssi)); // not available on OS X 10.9
 ```
 
 ### Running on Linux
