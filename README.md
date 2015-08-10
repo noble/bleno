@@ -37,6 +37,15 @@ sudo yum install bluez bluez-libs bluez-libs-devel
 
 See [Configure Intel Edison for Bluetooth LE (Smart) Development](http://rexstjohn.com/configure-intel-edison-for-bluetooth-le-smart-development/)
 
+### Windows
+
+ * [node-gyp requirements for Windows](https://github.com/TooTallNate/node-gyp#installation)
+  * Python 2.7
+  * Visual Studio ([Express](https://www.visualstudio.com/en-us/products/visual-studio-express-vs.aspx))
+ * [node-bluetooth-hci-socket prerequisites](https://github.com/sandeepmistry/node-bluetooth-hci-socket#windows)
+  * Compatible Bluetooth 4.0 USB adapter
+  * [WinUSB](https://msdn.microsoft.com/en-ca/library/windows/hardware/ff540196(v=vs.85).aspx) driver setup for Bluetooth 4.0 USB adapter, using [Zadig tool](http://zadig.akeo.ie/)
+
 ## Install
 
 ```sh
@@ -319,66 +328,6 @@ A custom device name can be specified by setting the ```BLENO_DEVICE_NAME``` env
 ```sh
 sudo BLENO_DEVICE_NAME="custom device name" node <your file>.js
 ```
-
-## Roadmap (TODO)
-
- * Mac OS X:
-   * ~~Adapter state (unknown | reseting | unsupported | unauthorized | off | on)~~
-   * ~~Advertisement~~
-      * ~~startAdvertising~~
-         * ~~name~~
-         * ~~service UUID's~~
-      * ~~startAdvertisingIBeacon~~
-      * ~~stopAdvertising~~
-   * ~~Services~~
-      * ~~UUID~~
-      * ~~Characteristics~~
-         * ~~UUID~~
-         * ~~properties~~
-           * ~~read (static, dynamic)~~
-           * ~~write~~
-           * ~~write without response~~
-           * ~~notify (subscribe, unsubscribe, value changed)~~
-           * broadcast (not possible)
-           * ~~indicate~~
-           * secure (not functioning, OS X issues)
-              * read
-              * write
-         * ~~Descriptors~~
-           * ~~UUID~~
-           * ~~read (static)~~
-           * write (not possible)
-      * Included Services (maybe ?)
-   * error handling
-
- * Linux
-   * ~~Adapter state (unsupported | unauthorized | off | on)~~
-   * ~~Advertisement~~
-      * ~~startAdvertising~~
-         * ~~name~~
-         * ~~service UUID's~~
-      * ~~startAdvertisingIBeacon~~
-      * ~~stopAdvertising~~
-   * ~~Services~~
-      * ~~UUID~~
-      * ~~Characteristics~~
-         * ~~UUID~~
-         * ~~properties~~
-           * ~~read (static, dynamic)~~
-           * ~~write~~
-           * ~~write without response~~
-           * ~~notify (subscribe, unsubscribe, value changed)~~
-           * broadcast (maybe ?)
-           * ~~indicate~~
-           * ~~secure~~
-               * ~~read~~
-               * ~~write~~
-         * ~~Descriptors~~
-           * ~~UUID~~
-           * ~~read (static)~~
-           * write (maybe ?)
-      * Included Services (maybe ?)
-   * error handling
 
 ## Useful tools/links
 
