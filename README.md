@@ -330,6 +330,18 @@ A custom device name can be specified by setting the ```BLENO_DEVICE_NAME``` env
 sudo BLENO_DEVICE_NAME="custom device name" node <your file>.js
 ```
 
+#### Set Advertising Interval
+
+bleno uses a 100 ms advertising interval by default.
+
+A custom advertising interval can be specified by setting the ```BLENO_ADVERTISING_INTERVAL``` enviroment variable with the desired value in milliseconds:
+
+```sh
+sudo BLENO_ADVERTISING_INTERVAL=500 node <your file>.js
+```
+
+Advertising intervals must be between 20 ms to 10 s (10,000 ms).
+
 ## Useful tools/links
 
  * Tools
