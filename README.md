@@ -20,6 +20,7 @@ __Note:__ Mac OS X, Linux, and Windows are currently the only supported OSes.
 
  * Kernel version 3.6 or above
  * ```libbluetooth-dev```
+ * ```bluetoothd``` disabled, if BlueZ 5.14 or later is installed
 
 #### Ubuntu/Debian/Raspbian
 
@@ -296,13 +297,13 @@ bleno.on('rssiUpdate', callback(rssi)); // not available on OS X 10.9
 
 #### Running without root/sudo
 
-Run the following command in the directory you ran ```npm install``` from:
+Run the following command:
 
 ```sh
-find -path '*bleno*Release/hci-ble' -exec sudo setcap cap_net_raw+eip '{}' \;
+sudo setcap cap_net_raw+eip $(eval readlink -f `which node`)
 ```
 
-This grants bleno's ```hci-ble``` binary ```cap_net_raw``` privileges, so it can start/stop BLE advertising.
+This grants the ```node``` binary ```cap_net_raw``` privileges, so it can start/stop BLE advertising.
 
 __Note:__ The above command requires ```setcap``` to be installed, it can be installed using the following:
 
