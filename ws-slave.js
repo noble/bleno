@@ -25,6 +25,11 @@ if (serverMode) {
 
     ws = ws_;
 
+    sendEvent({
+      type: 'stateChange',
+      state: bleno.state
+    });
+
     ws.on('message', onMessage);
 
     ws.on('close', function() {
