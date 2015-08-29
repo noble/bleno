@@ -1,7 +1,7 @@
 /* jshint loopfunc: true */
 var events = require('events');
 
-var debug = require('debug')('slave');
+var debug = require('debug')('blenoslave');
 var WebSocket = require('ws');
 
 var bleno = require('./index');
@@ -15,20 +15,20 @@ var ws;
 var wss;
 
 if (serverMode) {
-  console.log('bleno - ws slave - server mode');
+  debug('bleno - ws slave - server mode');
   wss = new WebSocket.Server({
     port: 0xB1f
   });
 
   wss.on('connection', function(ws_) {
-    console.log('ws -> connection');
+    debug('ws -> connection');
 
     ws = ws_;
 
     ws.on('message', onMessage);
 
     ws.on('close', function() {
-      console.log('ws -> close');
+      debug('ws -> close');
 
       bleno.stopAdvertising();
     });
@@ -37,7 +37,7 @@ if (serverMode) {
   ws = new WebSocket('ws://' + host + ':' + port);
 
   ws.on('open', function() {
-    console.log('ws -> open');
+    debug('ws -> open');
   });
 
   ws.on('message', function(message) {
@@ -45,7 +45,7 @@ if (serverMode) {
   });
 
   ws.on('close', function() {
-    console.log('ws -> close');
+    debug('ws -> close');
 
     bleno.stopAdvertising();
   });
@@ -58,7 +58,7 @@ var peripherals = {};
 function sendEvent(event) {
   var message = JSON.stringify(event);
 
-  console.log('ws -> send: ' + message);
+  debug('ws -> send: ' + message);
 
   var clients = serverMode ? wss.clients : [ws];
 
@@ -68,7 +68,7 @@ function sendEvent(event) {
 }
 
 var onMessage = function(message) {
-  console.log('ws -> message: ' + message);
+  debug('ws -> message: ' + message);
 
   var command = JSON.parse(message);
   
