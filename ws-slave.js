@@ -82,14 +82,17 @@ var onMessage = function(message) {
   var serviceUuids = command.serviceUuids;
   var data = command.data;
   var advertisementData = command.advertisementData;
+  var scanData = command.scanData;
   var services = command.services;
 
-  if (action === 'startAdvertising') {
+  if (action === 'disconnect') {
+    bleno.disconnect();
+  } else if (action === 'startAdvertising') {
     bleno.startAdvertising(name, serviceUuids);
   } else if (action === 'startAdvertisingIBeacon') {
     bleno.startAdvertisingIBeacon(data);
   } else if (action === 'startAdvertisingWithEIRData') {
-    bleno.startAdvertisingWithEIRData(advertisementData);
+    bleno.startAdvertisingWithEIRData(advertisementData, scanData);
   } else if (action === 'stopAdvertising') {
     bleno.stopAdvertising();
   } else if (action === 'setServices') {
