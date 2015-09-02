@@ -80,9 +80,11 @@ var onMessage = function(message) {
   var action = command.action;
   var name = command.name;
   var serviceUuids = command.serviceUuids;
-  var data = command.data;
-  var advertisementData = command.advertisementData;
-  var scanData = command.scanData;
+  var data = command.data ? new Buffer(command.data, 'hex') : null;
+  var advertisementData = command.advertisementData ? new Buffer(command.advertisementData, 'hex') : null;
+  var scanData = command.scanData ? new Buffer(command.scanData, 'hex') : null;
+
+  //todo, deserialize services properly
   var services = command.services;
 
   if (action === 'disconnect') {
