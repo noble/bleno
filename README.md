@@ -63,7 +63,11 @@ See [examples folder](https://github.com/sandeepmistry/bleno/blob/master/example
 
 ### Actions
 
-#### Start advertising
+#### Advertising
+
+##### Start advertising
+
+NOTE: ```bleno.state``` must be ```poweredOn``` before advertising is started. ```bleno.on('stateChange', callback(state));``` can be used register for state change events.
 
 ```javascript
 var name = 'name';
@@ -82,7 +86,7 @@ bleno.startAdvertising(name, serviceUuids[, callback(error)]);
     * 7 16-bit service UUID
 
 
-#### Start advertising iBeacon
+##### Start advertising iBeacon
 
 ```javascript
 var uuid = 'e2c56db5dffb48d2b060d0f5a71096e0';
@@ -97,7 +101,7 @@ bleno.startAdvertisingIBeacon(uuid, major, minor, measuredPower[, callback(error
   * OS X:
     * in iBeacon mode your peripheral is non-connectable!
 
-#### Start advertising with EIR data (__Linux only__)
+##### Start advertising with EIR data (__Linux only__)
 
 ```javascript
 var scanData = new Buffer(...); // maximum 31 bytes
@@ -108,7 +112,7 @@ bleno.startAdvertisingWithEIRData(advertisementData[, scanData, callback(error)]
 
   * For EIR format section [Bluetooth Core Specification](https://www.bluetooth.org/docman/handlers/downloaddoc.ashx?doc_id=229737) sections and 8 and 18 for more information the data format.
 
-#### Stop advertising
+##### Stop advertising
 
 ```javascript
 bleno.stopAdvertising([callback]);
