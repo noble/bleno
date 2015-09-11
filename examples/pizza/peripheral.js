@@ -24,6 +24,7 @@ var PizzaService = require('./pizza-service');
 //
 var name = 'PizzaSquat';
 var pizzaService = new PizzaService(new pizza.Pizza());
+var pizzaService2 = new PizzaService(new pizza.Pizza());
 
 //
 // Wait until the BLE radio powers on before attempting to advertise.
@@ -56,5 +57,16 @@ bleno.on('advertisingStart', function(err) {
     bleno.setServices([
       pizzaService
     ]);
+
+    var flip = false;
+    setInterval(function (){
+        if(flip){
+          bleno.removeService(pizzaService2);
+        } else {
+          bleno.addService(pizzaService2);
+        }
+        flip = !flip;
+    }, 1500);
+
   }
 });
