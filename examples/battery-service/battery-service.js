@@ -1,7 +1,10 @@
-var util = require('util'),
-  bleno = require('bleno'),
-  BlenoPrimaryService = bleno.PrimaryService,
-  BatteryLevelCharacteristic = require('./battery-level-characteristic');
+var util = require('util');
+
+var bleno = require('../..');
+
+var BlenoPrimaryService = bleno.PrimaryService;
+
+var BatteryLevelCharacteristic = require('./battery-level-characteristic');
 
 function BatteryService() {
   BatteryService.super_.call(this, {
