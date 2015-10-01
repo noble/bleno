@@ -1,3 +1,7 @@
+/*
+NOTE: This example no longer works on OSX starting in 10.10 (Yosemite). Apple has apparently blacklisted the battery uuid.
+*/
+
 var bleno = require('bleno'),
   BatteryService = require('./battery-service');
   
@@ -17,6 +21,8 @@ bleno.on('advertisingStart', function(error) {
     console.log('on -> advertisingStart: ' + (error ? 'error ' + error : 'success'));
 
     if (!error) {
-        bleno.setServices([primaryService]);
+        bleno.setServices([primaryService], function(error){
+            console.log(error);
+        });
     }
 });
