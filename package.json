@@ -33,7 +33,7 @@
     "jshint": "~2.3.0",
     "should": "~2.0.2",
     "mocha": "~1.14.0",
-    "node-blink1": "~0.1.1"
+    "node-blink1": "~0.2.2"
   },
   "dependencies": {
     "debug": "^2.2.0"
