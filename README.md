@@ -21,6 +21,12 @@ __Note:__ Mac OS X, Linux, and Windows are currently the only supported OSes.
  * Kernel version 3.6 or above
  * ```libbluetooth-dev```
  * ```bluetoothd``` disabled, if BlueZ 5.14 or later is installed
+    * ```System V```:
+      * ```sudo service bluetooth stop``` (once)
+      * ```update-rc.d bluetooth remove``` (persist on reboot)
+    * ```systemd```
+      * ```systemctl stop bluetooth``` (once)
+      * ```systemctl disable bluetooth``` (persist on reboot)
 
 #### Ubuntu/Debian/Raspbian
 
