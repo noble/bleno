@@ -346,7 +346,7 @@ sudo BLENO_DEVICE_NAME="custom device name" node <your file>.js
 
 or
 
-```node
+```js
 process.env['BLENO_DEVICE_NAME'] = 'custom device name';
 ```
 
