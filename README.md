@@ -20,13 +20,13 @@ __Note:__ Mac OS X, Linux, and Windows are currently the only supported OSes.
 
  * Kernel version 3.6 or above
  * ```libbluetooth-dev```
- * ```bluetoothd``` disabled, if BlueZ 5.14 or later is installed
+ * ```bluetoothd``` disabled, if BlueZ 5.14 or later is installed. Use ```sudo hciconfig hci0 up``` to power Bluetooth adapter up after stopping or disabling ```bluetoothd```.
     * ```System V```:
       * ```sudo service bluetooth stop``` (once)
-      * ```update-rc.d bluetooth remove``` (persist on reboot)
+      * ```sudo update-rc.d bluetooth remove``` (persist on reboot)
     * ```systemd```
-      * ```systemctl stop bluetooth``` (once)
-      * ```systemctl disable bluetooth``` (persist on reboot)
+      * ```sudo systemctl stop bluetooth``` (once)
+      * ```sudo systemctl disable bluetooth``` (persist on reboot)
 
 #### Ubuntu/Debian/Raspbian
 
