@@ -130,6 +130,8 @@ bleno.stopAdvertising([callback]);
 
 #### Set services
 
+Set the primary services available on the peripheral.
+
 ```javascript
 var services = [
    ... // see PrimaryService for data type
