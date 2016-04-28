@@ -9,6 +9,7 @@
   "os": [
     "darwin",
     "linux",
+    "android",
     "win32"
   ],
   "scripts": {
