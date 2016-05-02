@@ -56,10 +56,20 @@ describe('Characteristic', function() {
 
   it('should create with value option', function() {
     var characteristic = new Characteristic({
+      properties: ['read'],
       value: mockValue
     });
 
     characteristic.value.should.equal(mockValue);
+  });
+
+  it('should not create with value option and non-read properties', function() {
+    (function(){
+      var characteristic = new Characteristic({
+        properties: ['write'],
+        value: mockValue
+      });
+    }).should.throw();
   });
 
   it('should create with descriptors option', function() {
