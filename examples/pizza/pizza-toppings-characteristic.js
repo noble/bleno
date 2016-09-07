@@ -4,6 +4,7 @@ var pizza = require('./pizza');
 
 function PizzaToppingsCharacteristic(pizza) {
   bleno.Characteristic.call(this, {
+    name: 'Pizza Toppings Characteristic',
     uuid: '13333333333333333333333333330002',
     properties: ['read', 'write'],
     descriptors: [

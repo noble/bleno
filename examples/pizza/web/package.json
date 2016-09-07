@@ -1,0 +1,13 @@
+{
+  "name": "pizza",
+  "description": "A web bluetooth example of the pizza example for bleno and noble.",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.14.0",
+    "jade": "^1.11.0"
+  }
+}

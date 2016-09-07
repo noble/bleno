@@ -1,0 +1,38 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+#crust select {
+  font-size: 1.5em;
+}
+
+#toppings {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+input[type=checkbox] {
+  display: none;
+}
+
+input + label {
+  border: solid grey;
+  background: lightgrey;
+  padding: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+input:checked + label {
+  background: grey;
+  color: white;
+}
+
+#start, #bake {
+  font-size: 2em;
+}
+
+input#oven-temperature {
+  font-size: 1.5em;
+}
