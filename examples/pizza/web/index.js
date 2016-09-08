@@ -65,7 +65,7 @@ var readyToppings = function(toppings) {
   console.log('toppings:', toppings);
   return function() {
     var toppingsBuff = new Uint8Array(2);
-    toppingsBuff[0] = toppings.map((topping)=>PizzaToppings[topping]).concat(0).reduce((a, b)=>a | b);
+    toppingsBuff[0] = toppings.concat(0).reduce((a, b)=>a | b);
 
     var pizzaToppingsCharacteristic = cachedCharacteristics['toppings'];
     if(pizzaToppingsCharacteristic == null) throw new Error('oven not ready');
@@ -111,8 +111,6 @@ var getToppings = function() {
   [].slice.call(toppingsEls).forEach(function(el) {
     if(el.checked) toppings.push(Number(el.value));
   });
-  console.log(toppings);
-  return ['EXTRA_CHEESE', 'CANADIAN_BACON', 'PINEAPPLE'];
   return toppings;
 };
 
