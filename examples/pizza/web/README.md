@@ -1,6 +1,6 @@
 # Setup Instructions
-1. Get dependencies by running `npm install` in both the root of this repository and this folder.
-2. Start the web server and bleno with `npm start` or `node app.js` from this folder.
+1. Start the pizza peripheral per the in the readme
+2. Open `index.html` in Chrome with `http-server` or `python3 -m http.server` or `python -m SimpleHTTPServer`
 
 # Notes
 This only works in Chrome 48+ with the [enable-web-bluetooth flag](chrome://flags/#enable-web-bluetooth)

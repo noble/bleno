@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/style.css">
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      #toppings {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      input[type=checkbox] {
+        display: none;
+      }
+      input + label {
+        border: solid grey;
+        background: lightgrey;
+        padding: 10px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+      }
+      input:checked + label {
+        background: grey;
+        color: white;
+      }
+      #start, #bake, #oven-temperature, #crust-type {
+        font-size: 1.5em;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Pizza Builder</h1>
+    <p>Connect to your bluetooth-pizza-oven peripheral then choose your crust, toppings, and oven temperature.</p>
+    <button id="start" onclick="onStartButtonClick()">Connect to "oven"</button>
+    <h3>Crust</h3>
+    <div id="crust">
+      <select id="crust-type">
+        <option value="0">NORMAL</option>
+        <option value="1">DEEP_DISH</option>
+        <option value="2">THIN</option>
+      </select>
+    </div>
+    <h3>Toppings</h3>
+    <div id="toppings">
+      <input id="topping-NONE" name="toppings" type="checkbox" value="0">
+      <label for="topping-NONE">NONE</label>
+      <input id="topping-PEPPERONI" name="toppings" type="checkbox" value="1">
+      <label for="topping-PEPPERONI">PEPPERONI</label>
+      <input id="topping-MUSHROOMS" name="toppings" type="checkbox" value="2">
+      <label for="topping-MUSHROOMS">MUSHROOMS</label>
+      <input id="topping-EXTRA_CHEESE" name="toppings" type="checkbox" value="4">
+      <label for="topping-EXTRA_CHEESE">EXTRA_CHEESE</label>
+      <input id="topping-BLACK_OLIVES" name="toppings" type="checkbox" value="8">
+      <label for="topping-BLACK_OLIVES">BLACK_OLIVES</label>
+      <input id="topping-CANADIAN_BACON" name="toppings" type="checkbox" value="16">
+      <label for="topping-CANADIAN_BACON">CANADIAN_BACON</label>
+      <input id="topping-PINEAPPLE" name="toppings" type="checkbox" value="32">
+      <label for="topping-PINEAPPLE">PINEAPPLE</label>
+      <input id="topping-BELL_PEPPERS" name="toppings" type="checkbox" value="64">
+      <label for="topping-BELL_PEPPERS">BELL_PEPPERS</label>
+      <input id="topping-SAUSAGE" name="toppings" type="checkbox" value="128">
+      <label for="topping-SAUSAGE">SAUSAGE</label>
+    </div>
+    <h3>Oven Temperature</h3>
+    <div id="oven">
+      <input id="oven-temperature" type="number" min="0" max="1200" value="400">
+    </div>
+    <h3>Bake</h3>
+    <button id="bake" onclick="onBakeButtonClick()">Go!</button>
+    <h3>Response</h3>
+    <pre id="output"></pre>
+    <h3>Credits</h3>
+    <p>Utilizes the fantastic <a href="https://github.com/sandeepmistry/bleno">bleno</a> module written by <a href="https://github.com/sandeepmistry">Sandeep Mistry</a>.</p>
+    <p>Check out more web bluetooth examples <a href="https://googlechrome.github.io/samples/web-bluetooth/">here</a>.</p>
+    <script>
+      var name = 'PizzaSquat';
+      var pizzaServiceUuid = '13333333-3333-3333-3333-333333333337';
+      var characteristics = { 
+        crust: '13333333-3333-3333-3333-333333330001',
+        toppings: '13333333-3333-3333-3333-333333330002',
+        bake: '13333333-3333-3333-3333-333333330003' 
+      };
+      var PizzaBakeResult = {
+        HALF_BAKED: 0,
+        BAKED:      1,
+        CRISPY:     2,
+        BURNT:      3,
+        ON_FIRE:    4
+      };
+      var crustSelectEl = document.getElementById('crust-type');
+      var toppingsEls = document.querySelectorAll('[name=toppings]');
+      var ovenTempEl = document.getElementById('oven-temperature');
+      var crustTypeEl = document.getElementById('crust-type');
+      var outputEl = document.getElementById('output');
+      
+      // ¯\_(ツ)_/¯
+      function swap16(val) {
+        // le to be
+        return ((val & 0xFF) << 8)
+          | ((val >> 8) & 0xFF);
+      }
+
+      // store characteristics after retrieval
+      var cachedCharacteristics = {};
+      
+      // current bluetooth connection obj
+      var ovenServer = null;
+      
+      // connect to bluetooth peripheral
+      var readyOven = function() {
+        return navigator.bluetooth.requestDevice({
+          filters: [{ services: [ pizzaServiceUuid ], name: name }]
+
+        }).then(function(device) {
+          return device.gatt.connect();
+      
+        }).then(function(server) {
+          ovenServer = server;
+          return server.getPrimaryService(pizzaServiceUuid);
+      
+        }).then(function(service) {
+          return Promise.all(Object.values(characteristics).map((uuid)=>service.getCharacteristic(uuid)));
+      
+        }).then(function(characteristicObjs) {
+          Object.keys(characteristics).forEach((name, i)=> {
+            cachedCharacteristics[name] = characteristicObjs[i];
+          });
+      
+        }).catch(function(err) {
+          alert('oven (bluetooth) error');
+          throw err;
+        });
+      };
+      
+      // characteristic setup
+      var readyCrust = function(crustType) {
+        var crust = new Uint8Array(1);
+        crust[0] = crustType;
+      
+        var pizzaCrustCharacteristic = cachedCharacteristics['crust'];
+        if(pizzaCrustCharacteristic == null) throw new Error('oven not ready!');
+        return pizzaCrustCharacteristic.writeValue(crust).catch(function(err) {
+          alert('crust error');
+          throw err;
+        });
+      };
+      
+      var readyToppings = function(toppings) {
+        var toppingsBuff = new Uint8Array(2);
+        toppingsBuff[0] = toppings.concat(0).reduce((a, b)=>a | b);
+      
+        var pizzaToppingsCharacteristic = cachedCharacteristics['toppings'];
+        if(pizzaToppingsCharacteristic == null) throw new Error('oven not ready');
+        return pizzaToppingsCharacteristic.writeValue(toppingsBuff).catch(function(err) {
+          alert('toppings error');
+          throw err;
+        });
+      };
+      
+      var bakePizza = function(temperature) {
+        var pizzaBakeCharacteristic = cachedCharacteristics['bake'];
+        if(pizzaBakeCharacteristic == null) throw new Error('oven not ready!');
+      
+        var tempBuff = new Uint16Array([swap16(temperature)]);
+        return pizzaBakeCharacteristic.writeValue(tempBuff).then(function() {
+          result = pizzaBakeCharacteristic.value.getUint8();
+          log('The result is ' + (
+            result == PizzaBakeResult.HALF_BAKED ? 'half baked.' :
+            result == PizzaBakeResult.BAKED ? 'baked.' :
+            result == PizzaBakeResult.CRISPY ? 'crispy.' :
+            result == PizzaBakeResult.BURNT ? 'burnt.' :
+            result == PizzaBakeResult.ON_FIRE ? 'on fire!' : 'unknown?'));
+      
+          return result;
+      
+        }).catch(function(err) {
+          alert('bake error');
+          throw err;
+        });
+      };
+      
+      // get values from dom
+      var getCrustType = function() {
+        return Number(crustSelectEl.value);
+      };
+      
+      var getToppings = function() {
+        var toppings = [];
+        [].slice.call(toppingsEls).forEach(function(el) {
+          if(el.checked) toppings.push(Number(el.value));
+        });
+        return toppings;
+      };
+      
+      var getOvenTemperature = function() {
+        return ovenTempEl.value;
+      };
+      
+      // button listeners
+      var onStartButtonClick = function(e) {
+        if(ovenServer != null && ovenServer.connected) alert('Already connected...');
+        return readyOven().then(function() {
+          alert('Connection successful!');
+        });
+      };
+      
+      var onBakeButtonClick = function(e) {
+        if(ovenServer == null || !ovenServer.connected) alert('Not connected!');
+        readyCrust(getCrustType())
+        .then(() => readyToppings(getToppings()))
+        .then(() => bakePizza(getOvenTemperature()))
+      };
+      
+      var log = function(text) {
+        outputEl.textContent = text;
+      }
+    </script>
+  </body>
+</html>
