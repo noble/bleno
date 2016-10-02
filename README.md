@@ -182,7 +182,7 @@ var characteristic = new Characteristic({
     onWriteRequest: null, // optional write request handler, function(data, offset, withoutResponse, callback) { ...}
     onSubscribe: null, // optional notify/indicate subscribe handler, function(maxValueSize, updateValueCallback) { ...}
     onUnsubscribe: null, // optional notify/indicate unsubscribe handler, function() { ...}
-    onNotify: null // optional notify sent handler, function() { ...}
+    onNotify: null, // optional notify sent handler, function() { ...}
     onIndicate: null // optional indicate confirmation received handler, function() { ...}
 });
 ```
