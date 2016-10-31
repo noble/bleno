@@ -28,6 +28,8 @@ __Note:__ Mac OS X, Linux, and Windows are currently the only supported OSes.
       * ```sudo systemctl stop bluetooth``` (once)
       * ```sudo systemctl disable bluetooth``` (persist on reboot)
 
+If you're using [noble](https://github.com/sandeepmistry/noble) *and* bleno at the same time, connected BLE devices may not be able to retrieve a list of services from the BLE adaptor. Check out noble's [documentation on bleno compatibility](https://github.com/sandeepmistry/noble#bleno-compatibility)
+
 #### Ubuntu/Debian/Raspbian
 
 ```sh
@@ -310,6 +312,8 @@ bleno.on('rssiUpdate', callback(rssi)); // not available on OS X 10.9
 ```
 
 ### Running on Linux
+
+__Note:__ Make sure you've also checked the [Linux Prerequisites](#linux)
 
 #### Running without root/sudo
 
