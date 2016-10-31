@@ -28,7 +28,7 @@ __Note:__ Mac OS X, Linux, and Windows are currently the only supported OSes.
       * ```sudo systemctl stop bluetooth``` (once)
       * ```sudo systemctl disable bluetooth``` (persist on reboot)
 
-If you're using BlueZ 5.14 or later, you may find that running noble *and* bleno at the same time stops you from retrieving the list of services over BLE.
+If you're using [noble](https://github.com/sandeepmistry/noble) *and* bleno at the same time, connected BLE devices may not be able to retrieve a list of services from the BLE adaptor. Check out noble's [documentation on bleno compatibility](https://github.com/sandeepmistry/noble#bleno-compatibility)
 
 #### Ubuntu/Debian/Raspbian
 
