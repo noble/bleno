@@ -10,6 +10,7 @@
     "darwin",
     "linux",
     "android",
+    "freebsd",
     "win32"
   ],
   "scripts": {
