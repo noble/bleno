@@ -264,7 +264,7 @@ Can specify notify unsubscribe handler via constructor options or by extending C
 
 #### Notify value changes
 
-Call the ```updateValueCallback``` callback (see Notify subcribe), with an argument of type ```Buffer```
+Call the ```updateValueCallback``` callback (see Notify subscribe), with an argument of type ```Buffer```
 
 Can specify notify sent handler via constructor options or by extending Characteristic and overriding onNotify.
 
