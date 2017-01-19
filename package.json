@@ -16,7 +16,8 @@
   ],
   "scripts": {
     "pretest": "jshint *.js lib/. test/. examples/.",
-    "test": "mocha -R spec test/*.js"
+    "test": "mocha -R spec test/*.js",
+    "typescript": "node_modules/.bin/ts-node examples/echo-typescript/main.ts"
   },
   "repository": {
     "type": "git",
