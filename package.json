@@ -3,6 +3,7 @@
   "version": "0.4.1",
   "description": "A Node.js module for implementing BLE (Bluetooth Low Energy) peripherals",
   "main": "index.js",
+  "types": "index.d.ts",
   "engines": {
     "node": ">=0.8"
   },
@@ -15,7 +16,8 @@
   ],
   "scripts": {
     "pretest": "jshint *.js lib/. test/. examples/.",
-    "test": "mocha -R spec test/*.js"
+    "test": "mocha -R spec test/*.js",
+    "typescript": "node_modules/.bin/ts-node examples/echo-typescript/main.ts"
   },
   "repository": {
     "type": "git",
@@ -33,9 +35,11 @@
   "readmeFilename": "README.md",
   "devDependencies": {
     "jshint": "~2.3.0",
-    "should": "~2.0.2",
     "mocha": "~1.14.0",
-    "node-blink1": "~0.2.2"
+    "node-blink1": "~0.2.2",
+    "should": "~2.0.2",
+    "ts-node": "^2.0.0",
+    "typescript": "^2.1.5"
   },
   "dependencies": {
     "debug": "^2.2.0"
