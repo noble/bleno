@@ -3,11 +3,11 @@ export as namespace bleno;
 
 declare namespace bleno {
   class Characteristic {
-      uuid: any;
-      properties: any;
-      secure: any;
-      value: any;
-      descriptors: any;
+      public uuid: any;
+      public properties: any;
+      public secure: any;
+      public value: any;
+      public descriptors: any;
 
       constructor(options: any);
       onIndicate(): void;
@@ -25,16 +25,16 @@ declare namespace bleno {
   }
 
   class Descriptor {
-      uuid: any;
-      value: any;
+      public uuid: any;
+      public value: any;
 
       constructor(options: any);
       toString(): any;
   }
 
   class PrimaryService {
-      uuid: any;
-      characeteristics: any;
+      public uuid: any;
+      public characteristics: any;
 
       constructor(options: any);
       toString(): any;
