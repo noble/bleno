@@ -1,3 +1,5 @@
+/* jshint mocha: true */
+
 var should = require('should');
 
 var Descriptor = require('../lib/descriptor');

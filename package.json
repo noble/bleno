@@ -32,7 +32,7 @@
   "license": "MIT",
   "readmeFilename": "README.md",
   "devDependencies": {
-    "jshint": "~2.3.0",
+    "jshint": "~2.9.4",
     "should": "~2.0.2",
     "mocha": "~1.14.0",
     "node-blink1": "~0.2.2"
