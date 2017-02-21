@@ -1,3 +1,5 @@
+/* jshint mocha: true */
+
 var should = require('should');
 
 var PrimaryService = require('../lib/primary-service');
