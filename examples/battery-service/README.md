@@ -9,3 +9,6 @@ Install dependencies
 Run the example
 
     node main.js
+
+
+NOTE: This example no longer works on OSX starting in 10.10 (Yosemite). Apple has apparently blacklisted the battery uuid.
