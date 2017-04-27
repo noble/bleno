@@ -5,7 +5,7 @@
 
 A Node.js module for implementing BLE (Bluetooth Low Energy) peripherals.
 
-Need a BLE central module? See [noble](https://github.com/sandeepmistry/noble).
+Need a BLE client module for node? See [noble](https://github.com/sandeepmistry/noble).
 
 __Note:__ macOS / Mac OS X, Linux, FreeBSD and Windows are currently the only supported OSes.
 
