@@ -1,0 +1,31 @@
+{
+  "name": "ping-pong",
+  "version": "1.0.0",
+  "title": "ping-pong",
+  "description": "ping-pong between rpi and android, bluetooth based",
+  "tags": [],
+  "libraries": [
+    {
+      "name": "jquery",
+      "version": "2.1.1"
+    }
+  ],
+  "plugins": [
+    {
+      "name": "cordova-plugin-ble",
+      "version": "2.0.1"
+    },
+    {
+      "name": "cordova-plugin-bluetooth-serial"
+    }
+  ],
+  "index-file": "index.html",
+  "uuid": "50d09d67-20ac-4068-9542-2b21d61120fe",
+  "icon": "app-icon.png",
+  "doc-url": "http://evothings.com/2.2/doc/examples/template-basic-app.html",
+  "long-description": "ping-pong between rpi and android, bluetooth based",
+  "cordova-id": "com.storm.ping-pong.rpi",
+  "author-name": "Storm1er",
+  "author-email": "le.storm1er@gmail.com",
+  "author-url": "facebook.com/Storm1er"
+}

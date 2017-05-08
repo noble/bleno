@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, user-scalable=no,
+		shrink-to-fit=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+	<meta name="theme-color" content="#004d40">
+	<title>pingPong</title>
+	<style>
+		@import 'ui/css/app.css';
+		@import 'ui/css/materialize.css';
+	</style>
+	<script>
+	// Redirect console.log to Evothings Workbench.
+	if (window.hyper && window.hyper.log) { console.log = hyper.log }
+	</script>
+</head>
+<body ontouchstart=""><!-- ontouchstart="" enables low-delay CSS transitions. -->
+	<header>
+	<nav class="teal darken-4">
+			<div class="nav-wrapper">
+				<a href="#" class="brand-logo">PingPong</small></a>
+			</div>
+		</nav>
+	</header>
+	<main>
+		<div class="row container" id="main">
+			<div class="col s12 center-align">
+				<br><br><br><br><br><br><br><br>
+				<div class="preloader-wrapper big active">
+					<div class="spinner-layer spinner-blue-only">
+						<div class="circle-clipper left">
+							<div class="circle"></div>
+						</div><div class="gap-patch">
+							<div class="circle"></div>
+						</div><div class="circle-clipper right">
+							<div class="circle"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="fixed-action-btn">
+			<a class="btn-floating btn-large teal darken-4">
+				<i class="large material-icons">clear</i>
+			</a>
+		</div>
+	</main>
+	<script src="cordova.js"></script>
+	<script src="libs/evothings/evothings.js"></script>
+	<script src="libs/evothings/ui/ui.js"></script>
+	<script src="libs/jquery/jquery.js"></script>
+	<!-- TODO: Add libraries that you need -->
+	<script src="libs/materializecss.js"></script>
+	<script src="libs/app.js"></script>
+</body>
+</html>

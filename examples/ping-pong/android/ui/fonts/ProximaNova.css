@@ -1,0 +1,56 @@
+/*
+ * Web Fonts from fontspring.com
+ *
+ * All OpenType features and all extended glyphs have been removed.
+ * Fully installable fonts can be purchased at http://www.fontspring.com
+ *
+ * The fonts included in this stylesheet are subject to the End User License you purchased
+ * from Fontspring. The fonts are protected under domestic and international trademark and 
+ * copyright law. You are prohibited from modifying, reverse engineering, duplicating, or
+ * distributing this font software.
+ *
+ * (c) 2010-2014 Fontspring
+ *
+ *
+ *
+ *
+ * The fonts included are copyrighted by the vendor listed below.
+ *
+ * Vendor:      Mark Simonson Studio
+ * License URL: http://www.fontspring.com/fflicense/mark-simonson-studio
+ *
+ *
+ */
+
+@font-face {
+	font-family: 'Proxima Nova Regular';
+	src: url('ProximaNova-Reg-webfont.eot');
+	src: url('ProximaNova-Reg-webfont.eot?#iefix') format('embedded-opentype'),
+		 url('ProximaNova-Reg-webfont.woff') format('woff'),
+		 url('ProximaNova-Reg-webfont.ttf') format('truetype'),
+		 url('ProximaNova-Reg-webfont.svg#proxima_nova_rgregular') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Proxima Nova Bold';
+	src: url('ProximaNova-Bold-webfont.eot');
+	src: url('ProximaNova-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+		 url('ProximaNova-Bold-webfont.woff') format('woff'),
+		 url('ProximaNova-Bold-webfont.ttf') format('truetype'),
+		 url('ProximaNova-Bold-webfont.svg#proxima_nova_rgbold') format('svg');
+	font-weight: bold;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Proxima Nova Black';
+	src: url('ProximaNova-Black-webfont.eot');
+	src: url('ProximaNova-Black-webfont.eot?#iefix') format('embedded-opentype'),
+		 url('ProximaNova-Black-webfont.woff') format('woff'),
+		 url('ProximaNova-Black-webfont.ttf') format('truetype'),
+		 url('ProximaNova-Black-webfont.svg#proxima_nova_blblack') format('svg');
+	font-weight: bolder;
+	font-style: normal;
+}
