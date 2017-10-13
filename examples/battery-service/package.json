@@ -2,7 +2,7 @@
   "name": "battery-service",
   "version": "0.1.0",
   "description": "BLE (Bluetooth Low Energy) Battery Service",
-  "main": "index.js",
+  "main": "main.js",
   "engines": {
     "node": ">=0.10"
   },
