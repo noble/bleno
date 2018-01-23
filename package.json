@@ -29,6 +29,9 @@
     "peripheral"
   ],
   "author": "Sandeep Mistry",
+  "maintainers": [
+    "Jacob Rosenthal"
+  ],
   "license": "MIT",
   "readmeFilename": "README.md",
   "devDependencies": {
