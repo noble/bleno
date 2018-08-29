@@ -13,7 +13,7 @@ var StaticReadOnlyCharacteristic = function() {
   StaticReadOnlyCharacteristic.super_.call(this, {
     uuid: 'fffffffffffffffffffffffffffffff1',
     properties: ['read'],
-    value: new Buffer('value'),
+    value: Buffer.from('value'),
     descriptors: [
       new BlenoDescriptor({
         uuid: '2901',
@@ -35,7 +35,7 @@ util.inherits(DynamicReadOnlyCharacteristic, BlenoCharacteristic);
 
 DynamicReadOnlyCharacteristic.prototype.onReadRequest = function(offset, callback) {
   var result = this.RESULT_SUCCESS;
-  var data = new Buffer('dynamic value');
+  var data = Buffer.from('dynamic value');
 
   if (offset > data.length) {
     result = this.RESULT_INVALID_OFFSET;
@@ -58,7 +58,7 @@ util.inherits(LongDynamicReadOnlyCharacteristic, BlenoCharacteristic);
 
 LongDynamicReadOnlyCharacteristic.prototype.onReadRequest = function(offset, callback) {
   var result = this.RESULT_SUCCESS;
-  var data = new Buffer(512);
+  var data = Buffer.alloc(512);
 
   for (var i = 0; i < data.length; i++) {
     data[i] = i % 256;
@@ -103,7 +103,7 @@ NotifyOnlyCharacteristic.prototype.onSubscribe = function(maxValueSize, updateVa
 
   this.counter = 0;
   this.changeInterval = setInterval(function() {
-    var data = new Buffer(4);
+    var data = Buffer.alloc(4);
     data.writeUInt32LE(this.counter, 0);
 
     console.log('NotifyOnlyCharacteristic update value: ' + this.counter);
@@ -139,7 +139,7 @@ IndicateOnlyCharacteristic.prototype.onSubscribe = function(maxValueSize, update
 
   this.counter = 0;
   this.changeInterval = setInterval(function() {
-    var data = new Buffer(4);
+    var data = Buffer.alloc(4);
     data.writeUInt32LE(this.counter, 0);
 
     console.log('IndicateOnlyCharacteristic update value: ' + this.counter);

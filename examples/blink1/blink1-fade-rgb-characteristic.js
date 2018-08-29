@@ -34,7 +34,7 @@ Blink1FaceRGBCharacteristic.prototype.onWriteRequest = function(data, offset, wi
 
     this.blink1.fadeToRGB(fadeMillis, r, g, b, function() {
       if (this.updateValueCallback) {
-        this.updateValueCallback(new Buffer([r, g, b]));
+        this.updateValueCallback(Buffer.from([r, g, b]));
       }
     }.bind(this));
 

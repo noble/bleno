@@ -9,7 +9,7 @@ function SerialNumberCharacteristic(blink1) {
   SerialNumberCharacteristic.super_.call(this, {
     uuid: '2a25',
     properties: ['read'],
-    value: new Buffer(blink1.serialNumber),
+    value: Buffer.from(blink1.serialNumber),
     descriptors: [
       new BlenoDescriptor({
         uuid: '2901',

@@ -18,7 +18,7 @@ var BatteryLevelCharacteristic = function() {
       }),
       new Descriptor({
         uuid: '2904',
-        value: new Buffer([0x04, 0x01, 0x27, 0xAD, 0x01, 0x00, 0x00 ]) // maybe 12 0xC unsigned 8 bit
+        value: Buffer.from([0x04, 0x01, 0x27, 0xAD, 0x01, 0x00, 0x00 ]) // maybe 12 0xC unsigned 8 bit
       })
     ]
   });
@@ -34,11 +34,11 @@ BatteryLevelCharacteristic.prototype.onReadRequest = function(offset, callback) 
       var percent = data.split('\t')[1].split(';')[0];
       console.log(percent);
       percent = parseInt(percent, 10);
-      callback(this.RESULT_SUCCESS, new Buffer([percent]));
+      callback(this.RESULT_SUCCESS, Buffer.from([percent]));
     });
   } else {
     // return hardcoded value
-    callback(this.RESULT_SUCCESS, new Buffer([98]));
+    callback(this.RESULT_SUCCESS, Buffer.from([98]));
   }
 };
 

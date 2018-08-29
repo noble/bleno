@@ -11,7 +11,7 @@ var EchoCharacteristic = function() {
     value: null
   });
 
-  this._value = new Buffer(0);
+  this._value = Buffer.alloc(0);
   this._updateValueCallback = null;
 };
 

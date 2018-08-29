@@ -37,7 +37,7 @@ PizzaToppingsCharacteristic.prototype.onReadRequest = function(offset, callback)
     callback(this.RESULT_ATTR_NOT_LONG, null);
   }
   else {
-    var data = new Buffer(2);
+    var data = Buffer.alloc(2);
     data.writeUInt16BE(this.pizza.toppings, 0);
     callback(this.RESULT_SUCCESS, data);
   }
