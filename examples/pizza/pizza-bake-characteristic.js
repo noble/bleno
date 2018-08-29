@@ -31,7 +31,7 @@ PizzaBakeCharacteristic.prototype.onWriteRequest = function(data, offset, withou
     var self = this;
     this.pizza.once('ready', function(result) {
       if (self.updateValueCallback) {
-        var data = new Buffer(1);
+        var data = Buffer.alloc(1);
         data.writeUInt8(result, 0);
         self.updateValueCallback(data);
       }

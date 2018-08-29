@@ -8,7 +8,7 @@ describe('Characteristic', function() {
   var mockUuid = 'mockuuid';
   var mockProperties = ['property1', 'property2', 'property3'];
   var mockSecure = ['secure1', 'secure2', 'secure3'];
-  var mockValue = new Buffer('mock value');
+  var mockValue = Buffer.from('mock value');
   var mockDescriptors = [{}, {}, {}];
 
   var mockOnReadRequest = function() {};
@@ -152,7 +152,7 @@ describe('Characteristic', function() {
   it('should handle write request', function(done) {
     var characteristic = new Characteristic({});
 
-    characteristic.emit('writeRequest', new Buffer(0), 0, false, function(result) {
+    characteristic.emit('writeRequest', Buffer.alloc(0), 0, false, function(result) {
       result.should.equal(0x0e);
 
       done();

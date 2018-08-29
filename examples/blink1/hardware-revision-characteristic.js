@@ -26,7 +26,7 @@ HardwareRevisionCharacteristic.prototype.onReadRequest = function(offset, callba
     callback(this.RESULT_ATTR_NOT_LONG, null);
   } else {
     this.blink1.version(function(version) {
-      callback(this.RESULT_SUCCESS, new Buffer(version));
+      callback(this.RESULT_SUCCESS, Buffer.from(version));
     }.bind(this));
   }
 };

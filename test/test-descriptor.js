@@ -6,7 +6,7 @@ var Descriptor = require('../lib/descriptor');
 
 describe('Descriptor', function() {
   var mockUuid = 'mockuuid';
-  var mockValue = new Buffer('mock value');
+  var mockValue = Buffer.from('mock value');
 
   it('should create with uuid option', function() {
     var descriptor = new Descriptor({
