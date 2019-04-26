@@ -44,7 +44,7 @@
     "debug": "^2.2.0"
   },
   "optionalDependencies": {
-    "bluetooth-hci-socket": "^0.5.1",
+    "bluetooth-hci-socket": "git@github.com:abandonware/node-bluetooth-hci-socket.git",
     "bplist-parser": "0.0.6",
     "xpc-connection": "~0.1.4"
   }
