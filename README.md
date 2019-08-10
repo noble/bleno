@@ -13,7 +13,7 @@ __Note:__ macOS / Mac OS X, Linux, FreeBSD and Windows are currently the only su
 
 ### OS X
 
- * install [Xcode](https://itunes.apple.com/ca/app/xcode/id497799835?mt=12)
+ * install the XCode command line tools via `xcode-select --install`
  * 10.9 or later
 
 ### Linux
