@@ -35,17 +35,17 @@
   "license": "MIT",
   "readmeFilename": "README.md",
   "devDependencies": {
-    "jshint": "~2.10.2",
+    "jshint": "~2.11.0",
     "should": "~13.2.3",
-    "mocha": "~6.2.0",
-    "node-blink1": "~0.2.4"
+    "mocha": "~7.1.0",
+    "node-blink1": "~0.3.0"
   },
   "dependencies": {
     "debug": "^4.1.1"
   },
   "optionalDependencies": {
-    "@abandonware/bluetooth-hci-socket": "^0.5.3-1",
+    "@abandonware/bluetooth-hci-socket": "^0.5.3-5",
     "bplist-parser": "0.2.0",
-    "xpc-connect": "^1.3.1"
+    "xpc-connect": "^2.0.0"
   }
 }
