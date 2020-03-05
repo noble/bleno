@@ -15,6 +15,6 @@
     "url" : "https://github.com/don"
   },
   "dependencies": {
-    "bleno": ">0.5.0"
+    "@abandonware/bleno": "~0.5.1-0"
   }
 }
