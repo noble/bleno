@@ -12,7 +12,7 @@
   ],
   "author": {
     "name": "Don Coleman",
-    "url" : "https://github.com/don"
+    "url": "https://github.com/don"
   },
   "dependencies": {
     "@abandonware/bleno": "~0.5.1-1"
