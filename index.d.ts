@@ -21,7 +21,7 @@ interface CharacteristicOptions {
         offset: number,
         callback: (result: number, data?: Buffer) => void
     ) => void) | null;
-    onSubscribe?: ((maxValueSize: number, updateValueCallback: any) => void) | null;
+    onSubscribe?: ((maxValueSize: number, updateValueCallback: (data: Buffer) => void) => void) | null;
     onUnsubscribe?: (() => void) | null;
     onWriteRequest?: ((
         data: Buffer,
@@ -46,7 +46,7 @@ declare class Characteristic {
 
     onReadRequest(offset: number, callback: (result: number, data?: Buffer) => void): void;
 
-    onSubscribe(maxValueSize: number, updateValueCallback: any): void;
+    onSubscribe(maxValueSize: number, updateValueCallback: (data: Buffer) => void): void;
 
     onUnsubscribe(): void;
 
@@ -134,6 +134,8 @@ interface Bleno extends NodeJS.EventEmitter {
     updateRssi(callback?: (err: null, rssi: number) => void): void;
 
     on(event: 'stateChange', cb: (state: State) => void): this;
+    on(event: 'platform', cb: (platform: NodeJS.Platform) => void): this;
+    on(event: 'addressChange', cb: (address: string) => void): this;
     on(event: 'accept', cb: (address: string) => void): this;
     on(event: 'mtuChange', cb: (mtu: number) => void): this;
     on(event: 'disconnect', cb: (clientAddress: string) => void): this;
