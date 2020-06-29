@@ -49,5 +49,6 @@
     "@abandonware/bluetooth-hci-socket": "^0.5.3-5",
     "bplist-parser": "0.2.0",
     "xpc-connect": "^2.0.0"
-  }
+  },
+  "types": "./index.d.ts"
 }
