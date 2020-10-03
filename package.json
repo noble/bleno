@@ -4,7 +4,7 @@
   "description": "A Node.js module for implementing BLE (Bluetooth Low Energy) peripherals",
   "main": "index.js",
   "engines": {
-    "node": ">=0.8"
+    "node": ">=6"
   },
   "os": [
     "darwin",
@@ -36,16 +36,16 @@
   "readmeFilename": "README.md",
   "devDependencies": {
     "jshint": "~2.9.4",
-    "should": "~2.0.2",
-    "mocha": "~1.14.0",
+    "should": "~13.2.3",
+    "mocha": "~5.2.0",
     "node-blink1": "~0.2.2"
   },
   "dependencies": {
-    "debug": "^2.2.0"
+    "debug": "^4.1.0"
   },
   "optionalDependencies": {
     "bluetooth-hci-socket": "^0.5.1",
-    "bplist-parser": "0.0.6",
+    "bplist-parser": "0.1.1",
     "xpc-connection": "~0.1.4"
   }
 }
