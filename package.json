@@ -1,6 +1,6 @@
 {
   "name": "@abandonware/bleno",
-  "version": "0.5.1-2",
+  "version": "0.5.1-3",
   "description": "A Node.js module for implementing BLE (Bluetooth Low Energy) peripherals",
   "main": "index.js",
   "engines": {
