@@ -13,7 +13,7 @@ __Note:__ macOS / Mac OS X, Linux, FreeBSD and Windows are currently the only su
 
 ### OS X
 
- * install [Xcode](https://itunes.apple.com/ca/app/xcode/id497799835?mt=12)
+ * install the XCode command line tools via `xcode-select --install`
  * 10.9 or later
 
 ### Linux
@@ -378,7 +378,7 @@ process.env['BLENO_DEVICE_NAME'] = 'custom device name';
 
 bleno uses a 100 ms advertising interval by default.
 
-A custom advertising interval can be specified by setting the ```BLENO_ADVERTISING_INTERVAL``` enviroment variable with the desired value in milliseconds:
+A custom advertising interval can be specified by setting the ```BLENO_ADVERTISING_INTERVAL``` environment variable with the desired value in milliseconds:
 
 ```sh
 sudo BLENO_ADVERTISING_INTERVAL=500 node <your file>.js
